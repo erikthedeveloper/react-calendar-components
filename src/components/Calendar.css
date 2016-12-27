@@ -1,0 +1,8 @@
+.Calendar {
+  height: 300px;
+  width: 300px;
+  border: 1px solid magenta;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
