@@ -1,6 +1,7 @@
 import React from 'react';
 import './Calendar.css';
-import { range, chunk } from '../utils/utils';
+import { calendarMonthDates } from '../utils/date-utils';
+import { chunk } from '../utils/utils';
 
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -22,11 +23,7 @@ class Calendar extends React.Component {
   render() {
     const {currentMonth} = this.props;
 
-    // Hardcode for January 2017
-    const visibleDates = [
-      ...range(1, 32).map((date) => new Date(2017, 0, date)),
-      ...range(1, 5).map((date) => new Date(2017, 1, date)),
-    ];
+    const visibleDates = calendarMonthDates(currentMonth);
 
     return (
       <div className="Calendar">
@@ -75,7 +72,7 @@ class Calendar extends React.Component {
 
 Calendar.defaultProps = {
   today: new Date(),
-  currentMonth: new Date(2017, 0),
+  currentMonth: new Date(),
 };
 
 export default Calendar;
