@@ -8,9 +8,37 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 const MS_DAY = 1000 * 60 * 60 * 24;
 
 class Calendar extends React.Component {
+  constructor() {
+    super(...arguments);
+
+    this.incrementMonth = this.incrementMonth.bind(this);
+    this.decrementMonth = this.decrementMonth.bind(this);
+
+    const { today } = this.props;
+    this.state = {
+      currentMonth: new Date(today.getFullYear(), today.getMonth()),
+    };
+  }
+
+  incrementMonth() {
+    const currentMonth = new Date(
+      this.state.currentMonth.getFullYear(),
+      this.state.currentMonth.getMonth() + 1
+    );
+    this.setState({currentMonth});
+  }
+
+  decrementMonth() {
+    const currentMonth = new Date(
+      this.state.currentMonth.getFullYear(),
+      this.state.currentMonth.getMonth() - 1
+    );
+    this.setState({currentMonth});
+  }
 
   getDayClassName(date) {
-    const {today, currentMonth} = this.props;
+    const {currentMonth} = this.state;
+    const {today} = this.props;
 
     let className = 'Day';
     if (date.getMonth() !== currentMonth.getMonth())
@@ -21,7 +49,7 @@ class Calendar extends React.Component {
   }
 
   render() {
-    const {currentMonth} = this.props;
+    const {currentMonth} = this.state;
 
     const visibleDates = calendarMonthDates(currentMonth);
 
@@ -29,11 +57,11 @@ class Calendar extends React.Component {
       <div className="Calendar">
 
         <div className="MonthHeader">
-          <div className="MonthHeader__nav">&#10094;</div>
+          <div className="MonthHeader__nav" onClick={this.decrementMonth}>&#10094;</div>
           <div className="MonthHeader__label">
             {MONTHS[currentMonth.getMonth()]}
           </div>
-          <div className="MonthHeader__nav">&#10095;</div>
+          <div className="MonthHeader__nav" onClick={this.incrementMonth}>&#10095;</div>
         </div>
 
         <div className="WeekdayLabels">
@@ -72,7 +100,6 @@ class Calendar extends React.Component {
 
 Calendar.defaultProps = {
   today: new Date(),
-  currentMonth: new Date(),
 };
 
 export default Calendar;
