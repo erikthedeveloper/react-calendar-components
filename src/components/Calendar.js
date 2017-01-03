@@ -1,11 +1,11 @@
 import React from 'react';
 import './Calendar.css';
-import { calendarMonthDates } from '../utils/date-utils';
+import { calendarMonthDates, isSameMonth, isSameDay } from '../utils/date-utils';
 import { chunk } from '../utils/utils';
+import Day from './Day';
 
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-const MS_DAY = 1000 * 60 * 60 * 24;
 
 class Calendar extends React.Component {
   constructor() {
@@ -34,18 +34,6 @@ class Calendar extends React.Component {
       this.state.currentMonth.getMonth() - 1
     );
     this.setState({currentMonth});
-  }
-
-  getDayClassName(date) {
-    const {currentMonth} = this.state;
-    const {today} = this.props;
-
-    let className = 'Day';
-    if (date.getMonth() !== currentMonth.getMonth())
-      className += ' Day--disabled';
-    if (Math.abs(date - today) < MS_DAY && date.getDate() === today.getDate())
-      className += ' Day--today';
-    return className
   }
 
   render() {
@@ -80,11 +68,11 @@ class Calendar extends React.Component {
                   <div className="MonthGrid__item__height" />
                   <div className="MonthGrid__item__content">
 
-                    <div className={this.getDayClassName(date)}>
-                      <div className="Day__date">
-                        {date.getDate()}
-                      </div>
-                    </div>
+                  <Day
+                    date={date}
+                    today={isSameDay(date, this.props.today)}
+                    disabled={!isSameMonth(date, currentMonth)}
+                  />
 
                   </div>
                 </div>
