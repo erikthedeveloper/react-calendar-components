@@ -1,0 +1,17 @@
+.MonthGrid { }
+.MonthGrid__row {
+  display: flex;
+}
+.MonthGrid__item {
+  position: relative;
+  flex: 1;
+}
+/* Expand .MonthGrid__item's height to be square */
+.MonthGrid__item__height {
+  padding-bottom: 100%;
+}
+.MonthGrid__item__content {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  display: flex;
+}

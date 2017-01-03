@@ -1,8 +1,8 @@
 import React from 'react';
 import './Calendar.css';
 import { calendarMonthDates, isSameMonth, isSameDay } from '../utils/date-utils';
-import { chunk } from '../utils/utils';
 import Day from './Day';
+import MonthGrid from './MonthGrid';
 
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -60,26 +60,16 @@ class Calendar extends React.Component {
           ))}
         </div>
 
-        <div className="MonthGrid">
-          {chunk(visibleDates, 7).map((weekChunk, i) => (
-            <div className="MonthGrid__row" key={i}>
-              {weekChunk.map((date) => (
-                <div className="MonthGrid__item" key={date.getMonth() + date.getDate()}>
-                  <div className="MonthGrid__item__height" />
-                  <div className="MonthGrid__item__content">
-
-                  <Day
-                    date={date}
-                    today={isSameDay(date, this.props.today)}
-                    disabled={!isSameMonth(date, currentMonth)}
-                  />
-
-                  </div>
-                </div>
-              ))}
-            </div>
+        <MonthGrid>
+          {visibleDates.map((date) => (
+            <Day
+              key={date.toString()}
+              date={date}
+              today={isSameDay(date, this.props.today)}
+              disabled={!isSameMonth(date, currentMonth)}
+            />
           ))}
-        </div>
+        </MonthGrid>
 
       </div>
     )
