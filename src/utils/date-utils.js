@@ -1,5 +1,14 @@
 import { range } from './utils';
 
+export const isSameYear = (a, b) =>
+  a.getFullYear() === b.getFullYear();
+
+export const isSameMonth = (a, b) =>
+  isSameYear(a, b) && a.getMonth() === b.getMonth();
+
+export const isSameDay = (a, b) =>
+  isSameMonth(a, b) && a.getDate() === b.getDate();
+
 /**
  * Given a date, how many days are in the month?
  *  Peek ahead to "next month" and look back to "last day of current month" via date=0
