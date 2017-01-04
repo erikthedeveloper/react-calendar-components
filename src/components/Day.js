@@ -7,16 +7,26 @@ function getDayClassName(props) {
     className += ' Day--disabled';
   if (props.today)
     className += ' Day--today';
+  if (props.selected)
+    className += ' Day--selected';
   return className
 }
 
-const Day = (props) => (
-  <div className={getDayClassName(props)}>
-    <div className="Day__date">
-      {props.date.getDate()}
+const Day = (props) => {
+  // Whitelist props to be spread onto the top level div
+  const otherProps = {
+    onClick: props.onClick,
+  };
+
+  return (
+    <div {...otherProps} className={getDayClassName(props)}>
+      <div className="Day__date">
+        {props.date.getDate()}
+      </div>
+      {props.children}
     </div>
-  </div>
-);
+  );
+};
 
 Day.propTypes = {
   date: PropTypes.instanceOf(Date).isRequired,

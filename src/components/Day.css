@@ -22,3 +22,7 @@
 .Day--disabled {
   opacity: 0.4;
 }
+.Day--selected .Day__date {
+  background-color: orange;
+  color: white;
+}
