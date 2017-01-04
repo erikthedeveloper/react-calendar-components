@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import './Calendar.css';
 import { calendarMonthDates, isSameMonth, isSameDay } from '../utils/date-utils';
 import Day from './Day';
@@ -38,6 +38,7 @@ class Calendar extends React.Component {
 
   render() {
     const {currentMonth} = this.state;
+    const {DayComponent} = this.props;
 
     const visibleDates = calendarMonthDates(currentMonth);
 
@@ -62,7 +63,7 @@ class Calendar extends React.Component {
 
         <MonthGrid>
           {visibleDates.map((date) => (
-            <Day
+            <DayComponent
               key={date.toString()}
               date={date}
               today={isSameDay(date, this.props.today)}
@@ -76,8 +77,13 @@ class Calendar extends React.Component {
   }
 }
 
+Calendar.propTypes = {
+  DayComponent: PropTypes.func,
+};
+
 Calendar.defaultProps = {
   today: new Date(),
+  DayComponent: Day,
 };
 
 export default Calendar;
