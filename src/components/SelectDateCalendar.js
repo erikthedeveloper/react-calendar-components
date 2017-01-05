@@ -7,24 +7,10 @@ export default class SelectDateCalendar extends React.Component {
   constructor() {
     super(...arguments);
 
-    this.selectDate = this.selectDate.bind(this);
-
     this.DayComponent = withProps(() => ({
-      selectedDate: this.state.selectedDate,
-      selectDate: this.selectDate,
+      selectedDate: this.props.selectedDate,
+      selectDate: this.props.selectDate,
     }))(SelectDateDay);
-
-    const now = new Date();
-    this.state = {
-      selectedDate: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 2),
-    };
-  }
-
-  /**
-   * @param {Date|undefined} selectedDate
-   */
-  selectDate(selectedDate) {
-    this.setState({selectedDate});
   }
 
   render() {
@@ -33,3 +19,8 @@ export default class SelectDateCalendar extends React.Component {
     );
   }
 }
+
+SelectDateCalendar.propTypes = {
+  selectedDate: PropTypes.instanceOf(Date),
+  selectDate: PropTypes.func.isRequired,
+};

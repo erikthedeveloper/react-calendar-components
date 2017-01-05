@@ -1,18 +1,55 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
+import State from '../components/State';
 import Calendar from '../components/Calendar';
 import SelectDateCalendar from '../components/SelectDateCalendar';
 import DayIndicatorsCalendar from '../components/DayIndicatorsCalendar';
 import SelectRangeCalendar from '../components/SelectRangeCalendar';
 
-storiesOf('Calendar', module)
-  .add('Calendar (basic)', () => {
-    return <Calendar />;
-  })
+const now = new Date();
 
-  .add('SelectDateCalendar', () => {
-    return <SelectDateCalendar />;
-  })
+const MonthState = (props) => {
+  const initialState = {currentMonth: new Date()};
+  const stateSetters = (setState) => ({
+    setCurrentMonth: (currentMonth) => setState({currentMonth}),
+  });
+
+  return (
+    <State initialState={initialState} stateSetters={stateSetters}>
+      {props.children}
+    </State>
+  );
+};
+
+const SelectedDateState = (props) => (
+  <State
+    initialState={{
+      selectedDate: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 3),
+    }}
+    stateSetters={(setState) => ({
+      selectDate: (selectedDate) => setState({selectedDate}),
+    })}
+  >
+    {props.children}
+  </State>
+);
+
+storiesOf('Calendar', module)
+  .add('Calendar (basic)', () => (
+    <MonthState>
+      {(monthProps) => <Calendar {...monthProps} />}
+    </MonthState>
+  ))
+
+  .add('SelectDateCalendar', () => (
+    <MonthState>
+      {(monthProps) => (
+        <SelectedDateState>
+          {(selectedProps) => <SelectDateCalendar {...monthProps} {...selectedProps} />}
+        </SelectedDateState>
+      )}
+    </MonthState>
+  ))
 
   .add('DayIndicatorsCalendar', () => {
     const now = new Date();
@@ -20,9 +57,15 @@ storiesOf('Calendar', module)
       date: new Date(now.getFullYear(), now.getMonth(), now.getDate() + addDays),
     }));
 
-    return <DayIndicatorsCalendar events={events} />;
+    return (
+      <MonthState>
+        {(monthProps) => <DayIndicatorsCalendar {...monthProps} events={events} />}
+      </MonthState>
+    );
   })
 
   .add('SelectRangeCalendar', () => (
-    <SelectRangeCalendar />
+    <MonthState>
+      {(monthProps) => <SelectRangeCalendar {...monthProps} />}
+    </MonthState>
   ));
