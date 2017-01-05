@@ -4,6 +4,8 @@ import State from '../components/State';
 import Calendar from '../components/Calendar';
 import SelectDateCalendar from '../components/SelectDateCalendar';
 
+const now = new Date();
+
 const MonthState = (props) => {
   const initialState = {currentMonth: new Date()};
   const stateSetters = (setState) => ({
@@ -17,6 +19,19 @@ const MonthState = (props) => {
   );
 };
 
+const SelectedDateState = (props) => (
+  <State
+    initialState={{
+      selectedDate: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 3),
+    }}
+    stateSetters={(setState) => ({
+      selectDate: (selectedDate) => setState({selectedDate}),
+    })}
+  >
+    {props.children}
+  </State>
+);
+
 storiesOf('Calendar', module)
   .add('Calendar (basic)', () => (
     <MonthState>
@@ -26,6 +41,10 @@ storiesOf('Calendar', module)
 
   .add('SelectDateCalendar', () => (
     <MonthState>
-      {(monthProps) => <SelectDateCalendar {...monthProps} />}
+      {(monthProps) => (
+        <SelectedDateState>
+          {(selectedProps) => <SelectDateCalendar {...monthProps} {...selectedProps} />}
+        </SelectedDateState>
+      )}
     </MonthState>
   ));
