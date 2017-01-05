@@ -35,3 +35,19 @@
   border-radius: 50px;
   background-color: pink;
 }
+
+.Day__range-bar {
+  position: absolute;
+  bottom: 5px;
+  height: 8px;
+  width: 100%;
+  opacity: 0.4;
+  background-color: darkmagenta;
+}
+
+.Day__range-bar--start {
+  opacity: 1;
+}
+.Day__range-bar--end {
+  opacity: 1;
+}

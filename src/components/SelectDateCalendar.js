@@ -14,8 +14,9 @@ export default class SelectDateCalendar extends React.Component {
       selectDate: this.selectDate,
     }))(SelectDateDay);
 
+    const now = new Date();
     this.state = {
-      selectedDate: undefined,
+      selectedDate: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 2),
     };
   }
 

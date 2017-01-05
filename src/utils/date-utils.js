@@ -9,6 +9,9 @@ export const isSameMonth = (a, b) =>
 export const isSameDay = (a, b) =>
   isSameMonth(a, b) && a.getDate() === b.getDate();
 
+export const isInRange = (date, start, end) =>
+  (start <= date) && (date <= end);
+
 /**
  * Given a date, how many days are in the month?
  *  Peek ahead to "next month" and look back to "last day of current month" via date=0

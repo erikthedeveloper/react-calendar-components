@@ -16,6 +16,7 @@ const Day = (props) => {
   // Whitelist props to be spread onto the top level div
   const otherProps = {
     onClick: props.onClick,
+    onMouseEnter: props.onMouseEnter,
   };
 
   return (
