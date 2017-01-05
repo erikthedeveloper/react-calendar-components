@@ -13,32 +13,24 @@ class Calendar extends React.Component {
 
     this.incrementMonth = this.incrementMonth.bind(this);
     this.decrementMonth = this.decrementMonth.bind(this);
-
-    const { today } = this.props;
-    this.state = {
-      currentMonth: new Date(today.getFullYear(), today.getMonth()),
-    };
   }
 
   incrementMonth() {
-    const currentMonth = new Date(
-      this.state.currentMonth.getFullYear(),
-      this.state.currentMonth.getMonth() + 1
-    );
-    this.setState({currentMonth});
+    this.props.setCurrentMonth(new Date(
+      this.props.currentMonth.getFullYear(),
+      this.props.currentMonth.getMonth() + 1
+    ));
   }
 
   decrementMonth() {
-    const currentMonth = new Date(
-      this.state.currentMonth.getFullYear(),
-      this.state.currentMonth.getMonth() - 1
-    );
-    this.setState({currentMonth});
+    this.props.setCurrentMonth(new Date(
+      this.props.currentMonth.getFullYear(),
+      this.props.currentMonth.getMonth() - 1
+    ));
   }
 
   render() {
-    const {currentMonth} = this.state;
-    const {DayComponent} = this.props;
+    const {currentMonth, DayComponent} = this.props;
 
     const visibleDates = calendarMonthDates(currentMonth);
 
@@ -78,6 +70,9 @@ class Calendar extends React.Component {
 }
 
 Calendar.propTypes = {
+  currentMonth: PropTypes.instanceOf(Date).isRequired,
+  setCurrentMonth: PropTypes.func.isRequired,
+  today: PropTypes.instanceOf(Date),
   DayComponent: PropTypes.func,
 };
 
