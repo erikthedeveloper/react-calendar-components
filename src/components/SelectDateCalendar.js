@@ -3,24 +3,40 @@ import Calendar from './Calendar';
 import withProps from './withProps';
 import SelectDateDay from './SelectDateDay';
 
-export default class SelectDateCalendar extends React.Component {
-  constructor() {
-    super(...arguments);
+/**
+ * Higher Order Component to add "select date" feature
+ * @param {Component} Component
+ * @return {SelectDateCalendar}
+ */
+function selectDate(Component) {
 
-    this.DayComponent = withProps(() => ({
-      selectedDate: this.props.selectedDate,
-      selectDate: this.props.selectDate,
-    }))(SelectDateDay);
+  class SelectDateCalendar extends React.Component {
+    constructor() {
+      super(...arguments);
+
+      this.displayName =
+        `SelectDateCalendar(${Component.displayName || Component.name})`;
+
+      this.DayComponent = withProps(() => ({
+        selectedDate: this.props.selectedDate,
+        selectDate: this.props.selectDate,
+      }))(SelectDateDay);
+    }
+
+    render() {
+      return (
+        <Component {...this.props} DayComponent={this.DayComponent} />
+      );
+    }
   }
 
-  render() {
-    return (
-      <Calendar {...this.props} DayComponent={this.DayComponent} />
-    );
-  }
+  SelectDateCalendar.propTypes = {
+    selectedDate: PropTypes.instanceOf(Date),
+    selectDate: PropTypes.func.isRequired,
+  };
+
+  return SelectDateCalendar;
 }
 
-SelectDateCalendar.propTypes = {
-  selectedDate: PropTypes.instanceOf(Date),
-  selectDate: PropTypes.func.isRequired,
-};
+export default selectDate(Calendar);
+export { selectDate };

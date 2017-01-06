@@ -16,65 +16,80 @@ const rangeBarClassName = (date, range) => {
   return className;
 };
 
-export default class SelectDateCalendar extends React.Component {
-  constructor() {
-    super(...arguments);
+/**
+ * Higher Order Component to add "select range" feature
+ * @param {Component} Component
+ * @return {SelectRangeCalendar}
+ */
+function selectRange(Component) {
+  class SelectRangeCalendar extends React.Component {
+    constructor() {
+      super(...arguments);
 
-    this.DayComponent = withProps((props) => {
+      this.displayName =
+        `SelectRangeCalendar(${Component.displayName || Component.name})`;
+
+      this.DayComponent = withProps((props) => {
+        const {range} = this.state;
+        const {start, end, hover} = range;
+
+        return ({
+          onClick: () => this.handleClickDate(props.date),
+          onMouseEnter: () => this.handleMouseEnterDate(props.date),
+          children: isInRange(props.date, start, end || hover || start) && (
+            <span className={rangeBarClassName(props.date, range)} />
+          ),
+        });
+      })(Day);
+
+      const now = new Date();
+      this.state = {
+        range: {
+          start: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 5),
+          end: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 13),
+          hover: undefined,
+        },
+      };
+    }
+
+    /**
+     * @param {Date} date
+     */
+    handleClickDate(date) {
       const {range} = this.state;
-      const {start, end, hover} = range;
+      if (!range.start || date < range.start) {
+        this.setState({
+          range: {start: date, end: undefined},
+        });
+        return;
+      }
 
-      return ({
-        onClick: () => this.handleClickDate(props.date),
-        onMouseEnter: () => this.handleMouseEnterDate(props.date),
-        children: isInRange(props.date, start, end || hover || start) && (
-          <span className={rangeBarClassName(props.date, range)} />
-        ),
-      });
-    })(Day);
-
-    const now = new Date();
-    this.state = {
-      range: {
-        start: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 5),
-        end: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 13),
-        hover: undefined,
-      },
-    };
-  }
-
-  /**
-   * @param {Date} date
-   */
-  handleClickDate(date) {
-    const {range} = this.state;
-    if (!range.start || date < range.start) {
       this.setState({
-        range: {start: date, end: undefined},
+        range: {start: range.start, end: date},
       });
-      return;
     }
 
-    this.setState({
-      range: {start: range.start, end: date},
-    });
-  }
+    /**
+     * @param {Date} date
+     */
+    handleMouseEnterDate(date) {
+      const {range} = this.state;
+      if (range.start && !range.end) {
+        this.setState({
+          range: {...this.state.range, hover: date},
+        });
+      }
+    }
 
-  /**
-   * @param {Date} date
-   */
-  handleMouseEnterDate(date) {
-    const {range} = this.state;
-    if (range.start && !range.end) {
-      this.setState({
-        range: {...this.state.range, hover: date},
-      });
+    render() {
+      return (
+        <Component {...this.props} DayComponent={this.DayComponent} />
+      );
     }
   }
 
-  render() {
-    return (
-      <Calendar {...this.props} DayComponent={this.DayComponent} />
-    );
-  }
+  return SelectRangeCalendar;
 }
+
+export default selectRange(Calendar);
+export { selectRange };

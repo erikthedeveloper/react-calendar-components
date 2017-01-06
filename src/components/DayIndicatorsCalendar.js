@@ -9,24 +9,39 @@ const dateHasEvent =
     (event) => isSameDay(event.date, date)
   );
 
-export default class DayIndicatorsCalendar extends React.Component {
-  constructor() {
-    super(...arguments);
+/**
+ * Higher Order Component to add "day indicators" feature
+ * @param {Component} Component
+ * @return {DayIndicatorsCalendar}
+ */
+function dayIndicators(Component) {
+  class DayIndicatorsCalendar extends React.Component {
+    constructor() {
+      super(...arguments);
 
-    this.DayComponent = withProps((props) => ({
-      hasIndicator: dateHasEvent(props.date, this.props.events),
-    }))(IndicatorDay);
+      this.displayName =
+        `DayIndicatorsCalendar(${Component.displayName || Component.name})`;
+
+      this.DayComponent = withProps((props) => ({
+        hasIndicator: dateHasEvent(props.date, this.props.events),
+      }))(IndicatorDay);
+    }
+
+    render() {
+      return <Component {...this.props} DayComponent={this.DayComponent} />
+    }
   }
 
-  render() {
-    return <Calendar {...this.props} DayComponent={this.DayComponent} />
-  }
+  DayIndicatorsCalendar.propTypes = {
+    events: PropTypes.arrayOf(
+      PropTypes.shape({
+        date: PropTypes.instanceOf(Date).isRequired,
+      })
+    ).isRequired,
+  };
+
+  return DayIndicatorsCalendar;
 }
 
-DayIndicatorsCalendar.propTypes = {
-  events: PropTypes.arrayOf(
-    PropTypes.shape({
-      date: PropTypes.instanceOf(Date).isRequired,
-    })
-  ).isRequired,
-};
+export default dayIndicators(Calendar);
+export { dayIndicators };
