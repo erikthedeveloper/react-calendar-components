@@ -2,9 +2,6 @@ import React, { PropTypes } from 'react';
 
 function indicatorDay(Component) {
   const IndicatorDay = (props) => {
-    if (props.date.getDate() === 10) {
-      console.log('indicator');
-    }
     return (
       <Component {...props}>
         {props.children}
