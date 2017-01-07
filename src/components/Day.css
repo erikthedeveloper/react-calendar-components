@@ -16,6 +16,11 @@
   border-radius: 50px;
   border: 1px solid transparent;
 }
+.Day__content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
 .Day--today .Day__date {
   border-color: orange;
 }
@@ -30,8 +35,14 @@
 .Day__indicator {
   position: absolute;
   bottom: 5px;
+  width: 100%;
+}
+.Day__indicator:after {
+  display: block;
+  content: '';
   height: 8px;
   width: 8px;
+  margin: 0 auto;
   border-radius: 50px;
   background-color: pink;
 }
