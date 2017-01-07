@@ -24,7 +24,9 @@ const Day = (props) => {
       <div className="Day__date">
         {props.date.getDate()}
       </div>
-      {props.children}
+      <div className="Day__content">
+        {props.children}
+      </div>
     </div>
   );
 };
