@@ -13,7 +13,7 @@ const rangeBarClassName = (date, range) => {
   return className;
 };
 
-function rangeDay(Component) {
+function selectRangeDay(Component) {
 
   const RangeDay = (props) => {
     const {start, end, hover} = props.range;
@@ -41,4 +41,4 @@ function rangeDay(Component) {
   return RangeDay;
 }
 
-export { rangeDay };
+export { selectRangeDay };

@@ -3,7 +3,7 @@ import { compose } from '../../utils/utils';
 import Calendar from '../Calendar';
 import Day from '../Day';
 import withProps from '../withProps';
-import { indicatorDay } from './IndicatorDay';
+import { indicatorDay } from './indicatorDay';
 import {isSameDay} from '../../utils/date-utils';
 
 const dateHasEvent =
@@ -14,15 +14,15 @@ const dateHasEvent =
 /**
  * Higher Order Component to add "day indicators" feature
  * @param {Component} Component
- * @return {DayIndicatorsCalendar}
+ * @return {IndicatorCalendar}
  */
-function dayIndicators(Component) {
-  class DayIndicatorsCalendar extends React.Component {
+function indicators(Component) {
+  class IndicatorCalendar extends React.Component {
     constructor() {
       super(...arguments);
 
       this.displayName =
-        `DayIndicatorsCalendar(${Component.displayName || Component.name})`;
+        `IndicatorCalendar(${Component.displayName || Component.name})`;
 
       this.DayComponent = compose([
         withProps((props) => ({
@@ -37,11 +37,11 @@ function dayIndicators(Component) {
     }
   }
 
-  DayIndicatorsCalendar.defaultProps = {
+  IndicatorCalendar.defaultProps = {
     DayComponent: Day,
   };
 
-  DayIndicatorsCalendar.propTypes = {
+  IndicatorCalendar.propTypes = {
     events: PropTypes.arrayOf(
       PropTypes.shape({
         date: PropTypes.instanceOf(Date).isRequired,
@@ -49,8 +49,8 @@ function dayIndicators(Component) {
     ).isRequired,
   };
 
-  return DayIndicatorsCalendar;
+  return IndicatorCalendar;
 }
 
-export default dayIndicators(Calendar);
-export { dayIndicators };
+export default indicators(Calendar);
+export { indicators };

@@ -3,7 +3,7 @@ import { compose } from '../../utils/utils';
 import Calendar from '../Calendar';
 import withProps from '../withProps';
 import Day from '../Day';
-import { rangeDay } from './SelectRangeDay';
+import { selectRangeDay } from './selectRangeDay';
 
 /**
  * Higher Order Component to add "select range" feature
@@ -19,12 +19,12 @@ function selectRange(Component) {
         `SelectRangeCalendar(${Component.displayName || Component.name})`;
 
       this.DayComponent = compose([
-          withProps((props) => ({
+        withProps((props) => ({
           range: this.state.range,
           onClick: () => this.handleClickDate(props.date),
           onMouseEnter: () => this.handleMouseEnterDate(props.date),
         })),
-        rangeDay,
+        selectRangeDay,
       ])(this.props.DayComponent);
 
       const now = new Date();

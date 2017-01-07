@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react';
 import { isSameDay } from '../../utils/date-utils';
 
-function selectableDay(Component) {
-  // TODO: Rename SelectableDay
+function selectDateDay(Component) {
   const SelectDateDay = (props) => {
     const additionalProps = {
       selected: (
@@ -27,4 +26,4 @@ function selectableDay(Component) {
   return SelectDateDay;
 }
 
-export { selectableDay };
+export { selectDateDay };

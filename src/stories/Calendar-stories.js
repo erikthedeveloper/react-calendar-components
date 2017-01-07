@@ -2,9 +2,9 @@ import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 import { MergedState } from '../components/State';
 import Calendar from '../components/Calendar';
-import SelectDateCalendar, { selectDate } from '../components/features/SelectDateCalendar';
-import DayIndicatorsCalendar, { dayIndicators } from '../components/features/DayIndicatorsCalendar';
-import SelectRangeCalendar, { selectRange } from '../components/features/SelectRangeCalendar';
+import SelectDateCalendar, { selectDate } from '../components/features/selectDate';
+import DayIndicatorsCalendar, { indicators } from '../components/features/indicators';
+import SelectRangeCalendar, { selectRange } from '../components/features/selectRange';
 import { compose } from '../utils/utils';
 import {
   monthState,
@@ -26,7 +26,7 @@ storiesOf('Calendar', module)
     </MergedState>
   ))
 
-  .add('DayIndicatorsCalendar', () => (
+  .add('IndicatorCalendar', () => (
     <MergedState stateProps={[monthState, eventsState]}>
       {(stateProps) => <DayIndicatorsCalendar {...stateProps} />}
     </MergedState>
@@ -35,7 +35,7 @@ storiesOf('Calendar', module)
   .add('SelectDate + DayIndicators', () => {
     const CalendarComponent = compose([
       selectDate,
-      dayIndicators,
+      indicators,
     ])(Calendar);
 
     return (
@@ -53,7 +53,7 @@ storiesOf('Calendar', module)
 
   .add('SelectRange + DayIndicators', () => {
     const CalendarComponent = compose([
-      dayIndicators,
+      indicators,
       selectRange,
     ])(Calendar);
 

@@ -3,7 +3,7 @@ import { compose } from '../../utils/utils';
 import Calendar from '../Calendar';
 import withProps from '../withProps';
 import Day from '../Day';
-import { selectableDay } from './SelectDateDay';
+import { selectDateDay } from './selectDateDay';
 
 /**
  * Higher Order Component to add "select date" feature
@@ -24,7 +24,7 @@ function selectDate(Component) {
           selectedDate: this.props.selectedDate,
           selectDate: this.props.selectDate,
         })),
-        selectableDay,
+        selectDateDay,
       ])(this.props.DayComponent);
     }
 
