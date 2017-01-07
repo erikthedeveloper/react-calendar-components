@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import { compose } from '../../utils/utils';
-import Calendar from '../Calendar';
 import Day from '../Day';
 import withProps from '../withProps';
 import { indicatorDay } from './indicatorDay';
@@ -52,5 +51,4 @@ function indicators(Component) {
   return IndicatorCalendar;
 }
 
-export default indicators(Calendar);
 export { indicators };

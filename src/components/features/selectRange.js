@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import { compose } from '../../utils/utils';
-import Calendar from '../Calendar';
 import withProps from '../withProps';
 import Day from '../Day';
 import { selectRangeDay } from './selectRangeDay';
@@ -80,5 +79,4 @@ function selectRange(Component) {
   return SelectRangeCalendar;
 }
 
-export default selectRange(Calendar);
 export { selectRange };

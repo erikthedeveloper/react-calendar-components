@@ -2,15 +2,17 @@ import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 import { MergedState } from '../components/State';
 import Calendar from '../components/Calendar';
-import SelectDateCalendar, { selectDate } from '../components/features/selectDate';
-import DayIndicatorsCalendar, { indicators } from '../components/features/indicators';
-import SelectRangeCalendar, { selectRange } from '../components/features/selectRange';
+import { selectDate, indicators, selectRange } from '../components/features';
 import { compose } from '../utils/utils';
 import {
   monthState,
   selectDateState,
   eventsState,
 } from './story-state';
+
+const SelectDateCalendar = selectDate(Calendar);
+const DayIndicatorsCalendar = indicators(Calendar);
+const SelectRangeCalendar = selectRange(Calendar);
 
 storiesOf('Calendar', module)
 
