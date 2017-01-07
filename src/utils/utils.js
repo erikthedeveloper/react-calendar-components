@@ -19,3 +19,10 @@ export const range = (startOrLength, end) => {
 export const chunk = (array, size) =>
   range(Math.ceil(array.length / size))
     .map((i) => array.slice(i * size, (i * size) + size));
+
+/**
+ * Compose functions...
+ * @param fns
+ */
+export const compose = (fns) => (first) =>
+  fns.reduceRight((result, fn) => fn(result), first);
