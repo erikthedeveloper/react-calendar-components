@@ -2,11 +2,20 @@ import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 import State from '../components/State';
 import Calendar from '../components/Calendar';
-import SelectDateCalendar from '../components/SelectDateCalendar';
-import DayIndicatorsCalendar from '../components/DayIndicatorsCalendar';
-import SelectRangeCalendar from '../components/SelectRangeCalendar';
+import SelectDateCalendar, { selectDate } from '../components/SelectDateCalendar';
+import DayIndicatorsCalendar, { dayIndicators } from '../components/DayIndicatorsCalendar';
+import Day from '../components/Day';
+import { indicatorDay } from '../components/IndicatorDay';
+import { selectableDay } from '../components/SelectDateDay';
+import { rangeDay } from '../components/SelectRangeDay';
+import SelectRangeCalendar, { selectRange } from '../components/SelectRangeCalendar';
+import { compose } from '../utils/utils';
 
 const now = new Date();
+
+const events = [-2, 3, 7, 15, 20, 40].map((addDays) => ({
+  date: new Date(now.getFullYear(), now.getMonth(), now.getDate() + addDays),
+}));
 
 const MonthState = (props) => {
   const initialState = {currentMonth: new Date()};
@@ -52,11 +61,6 @@ storiesOf('Calendar', module)
   ))
 
   .add('DayIndicatorsCalendar', () => {
-    const now = new Date();
-    const events = [-2, 3, 7, 15, 20, 40,].map((addDays) => ({
-      date: new Date(now.getFullYear(), now.getMonth(), now.getDate() + addDays),
-    }));
-
     return (
       <MonthState>
         {(monthProps) => <DayIndicatorsCalendar {...monthProps} events={events} />}
@@ -64,8 +68,81 @@ storiesOf('Calendar', module)
     );
   })
 
+  .add('SelectDate + DayIndicators', () => {
+
+    const DayComponent = compose([
+      selectableDay,
+      indicatorDay,
+    ])(Day);
+
+    const CalendarComponent = compose([
+      selectDate,
+      dayIndicators,
+    ])(Calendar);
+
+    const StateComponent = (props) => (
+      <MonthState>
+        {(monthProps) => (
+          <SelectedDateState>
+            {(selectedProps) => props.children(Object.assign({},
+              monthProps,
+              selectedProps,
+              {events}
+            ))}
+          </SelectedDateState>
+        )}
+      </MonthState>
+    );
+
+    return (
+      <StateComponent>
+        {(stateProps) => (
+          <CalendarComponent
+            {...stateProps}
+            DayComponent={DayComponent}
+          />
+        )}
+      </StateComponent>
+    );
+  })
+
   .add('SelectRangeCalendar', () => (
     <MonthState>
       {(monthProps) => <SelectRangeCalendar {...monthProps} />}
     </MonthState>
-  ));
+  ))
+
+  .add('SelectRange + DayIndicators', () => {
+
+    const DayComponent = compose([
+      rangeDay,
+      indicatorDay,
+    ])(Day);
+
+    const CalendarComponent = compose([
+      dayIndicators,
+      selectRange,
+    ])(Calendar);
+
+
+    const StateComponent = (props) => (
+      <MonthState>
+        {(monthProps) => props.children({
+          ...monthProps,
+          events,
+        })}
+      </MonthState>
+    );
+
+    return (
+      <StateComponent>
+        {(stateProps) => (
+          <CalendarComponent
+            {...stateProps}
+            DayComponent={DayComponent}
+          />
+        )}
+      </StateComponent>
+    );
+
+  });
