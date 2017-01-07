@@ -1,18 +1,30 @@
 import React, { PropTypes } from 'react';
 import Day from './Day';
 
-const IndicatorDay = (props) => {
-  return (
-    <Day {...props}>
-      {props.hasIndicator && (
-        <span className="Day__indicator" />
-      )}
-    </Day>
-  );
-};
+function indicatorDay(Component) {
+  const IndicatorDay = (props) => {
+    if (props.date.getDate() === 10) {
+      console.log('indicator');
+    }
+    return (
+      <Component {...props}>
+        {props.children}
+        {props.hasIndicator && (
+          <span className="Day__indicator" />
+        )}
+      </Component>
+    );
+  };
 
-IndicatorDay.propTypes = {
-  hasIndicator: PropTypes.bool,
-};
+  IndicatorDay.displayName =
+    `IndicatorDay(${Component.displayName || Component.name})`;
 
-export default IndicatorDay;
+  IndicatorDay.propTypes = {
+    hasIndicator: PropTypes.bool,
+  };
+
+  return IndicatorDay;
+}
+
+export default indicatorDay(Day);
+export { indicatorDay };

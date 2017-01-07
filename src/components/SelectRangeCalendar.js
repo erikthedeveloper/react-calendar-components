@@ -1,20 +1,7 @@
 import React, { PropTypes } from 'react';
 import Calendar from './Calendar';
-import { isInRange, isSameDay } from '../utils/date-utils';
 import withProps from './withProps';
 import Day from './Day';
-
-const rangeBarClassName = (date, range) => {
-  let className = 'Day__range-bar';
-  if (range.start && isSameDay(date, range.start)) {
-    className += ' Day__range-bar--start';
-  }
-  if (range.end && isSameDay(date, range.end)) {
-    className += ' Day__range-bar--end';
-  }
-
-  return className;
-};
 
 /**
  * Higher Order Component to add "select range" feature
@@ -29,18 +16,11 @@ function selectRange(Component) {
       this.displayName =
         `SelectRangeCalendar(${Component.displayName || Component.name})`;
 
-      this.DayComponent = withProps((props) => {
-        const {range} = this.state;
-        const {start, end, hover} = range;
-
-        return ({
-          onClick: () => this.handleClickDate(props.date),
-          onMouseEnter: () => this.handleMouseEnterDate(props.date),
-          children: isInRange(props.date, start, end || hover || start) && (
-            <span className={rangeBarClassName(props.date, range)} />
-          ),
-        });
-      })(Day);
+      this.DayComponent = withProps((props) => ({
+        range: this.state.range,
+        onClick: () => this.handleClickDate(props.date),
+        onMouseEnter: () => this.handleMouseEnterDate(props.date),
+      }))(this.props.DayComponent);
 
       const now = new Date();
       this.state = {
@@ -87,6 +67,10 @@ function selectRange(Component) {
       );
     }
   }
+
+  SelectRangeCalendar.defaultProps = {
+    DayComponent: Day,
+  };
 
   return SelectRangeCalendar;
 }

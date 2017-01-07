@@ -20,7 +20,7 @@ function selectDate(Component) {
       this.DayComponent = withProps(() => ({
         selectedDate: this.props.selectedDate,
         selectDate: this.props.selectDate,
-      }))(SelectDateDay);
+      }))(this.props.DayComponent);
     }
 
     render() {
@@ -29,6 +29,10 @@ function selectDate(Component) {
       );
     }
   }
+
+  SelectDateCalendar.defaultProps = {
+    DayComponent: SelectDateDay,
+  };
 
   SelectDateCalendar.propTypes = {
     selectedDate: PropTypes.instanceOf(Date),

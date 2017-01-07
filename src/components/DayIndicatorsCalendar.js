@@ -24,13 +24,17 @@ function dayIndicators(Component) {
 
       this.DayComponent = withProps((props) => ({
         hasIndicator: dateHasEvent(props.date, this.props.events),
-      }))(IndicatorDay);
+      }))(this.props.DayComponent);
     }
 
     render() {
       return <Component {...this.props} DayComponent={this.DayComponent} />
     }
   }
+
+  DayIndicatorsCalendar.defaultProps = {
+    DayComponent: IndicatorDay,
+  };
 
   DayIndicatorsCalendar.propTypes = {
     events: PropTypes.arrayOf(
