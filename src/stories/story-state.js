@@ -6,19 +6,6 @@ export const dummyEvents = [-2, 3, 7, 15, 20, 40].map((addDays) => ({
   date: new Date(now.getFullYear(), now.getMonth(), now.getDate() + addDays),
 }));
 
-export const mergeStateProps = (stateProps) => stateProps.reduce(
-  (merged, props) => ({
-    initialState: {
-      ...merged.initialState,
-      ...props.initialState,
-    },
-    stateSetters: (setState) => ({
-      ...merged.stateSetters(setState),
-      ...props.stateSetters(setState),
-    }),
-  })
-);
-
 export const monthState = {
   initialState: {currentMonth: new Date()},
   stateSetters: (setState) => ({

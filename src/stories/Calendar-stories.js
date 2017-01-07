@@ -1,38 +1,36 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
-import State from '../components/State';
+import { MergedState } from '../components/State';
 import Calendar from '../components/Calendar';
 import SelectDateCalendar, { selectDate } from '../components/SelectDateCalendar';
 import DayIndicatorsCalendar, { dayIndicators } from '../components/DayIndicatorsCalendar';
 import SelectRangeCalendar, { selectRange } from '../components/SelectRangeCalendar';
 import { compose } from '../utils/utils';
 import {
-  mergeStateProps,
   monthState,
   selectDateState,
   eventsState,
 } from './story-state';
 
 storiesOf('Calendar', module)
+
   .add('Calendar (basic)', () => (
-    <State {...monthState}>
-      {(monthProps) => <Calendar {...monthProps} />}
-    </State>
+    <MergedState stateProps={[monthState]}>
+      {(stateProps) => <Calendar {...stateProps} />}
+    </MergedState>
   ))
 
   .add('SelectDateCalendar', () => (
-    <State {...mergeStateProps([monthState, selectDateState])}>
+    <MergedState stateProps={[monthState, selectDateState]}>
       {(stateProps) => <SelectDateCalendar {...stateProps} />}
-    </State>
+    </MergedState>
   ))
 
-  .add('DayIndicatorsCalendar', () => {
-    return (
-      <State {...mergeStateProps([monthState, eventsState])}>
-        {(monthProps) => <DayIndicatorsCalendar {...monthProps} />}
-      </State>
-    );
-  })
+  .add('DayIndicatorsCalendar', () => (
+    <MergedState stateProps={[monthState, eventsState]}>
+      {(stateProps) => <DayIndicatorsCalendar {...stateProps} />}
+    </MergedState>
+  ))
 
   .add('SelectDate + DayIndicators', () => {
     const CalendarComponent = compose([
@@ -41,16 +39,16 @@ storiesOf('Calendar', module)
     ])(Calendar);
 
     return (
-      <State {...mergeStateProps([monthState, selectDateState, eventsState])}>
+      <MergedState stateProps={[monthState, selectDateState, eventsState]}>
         {(stateProps) => <CalendarComponent {...stateProps} />}
-      </State>
+      </MergedState>
     );
   })
 
   .add('SelectRangeCalendar', () => (
-    <State {...monthState}>
-      {(monthProps) => <SelectRangeCalendar {...monthProps} />}
-    </State>
+    <MergedState stateProps={[monthState]}>
+      {(stateProps) => <SelectRangeCalendar {...stateProps} />}
+    </MergedState>
   ))
 
   .add('SelectRange + DayIndicators', () => {
@@ -60,9 +58,8 @@ storiesOf('Calendar', module)
     ])(Calendar);
 
     return (
-      <State {...mergeStateProps([monthState, eventsState])}>
+      <MergedState stateProps={[monthState, eventsState]}>
         {(stateProps) => <CalendarComponent {...stateProps} /> }
-      </State>
+      </MergedState>
     );
-
   });
