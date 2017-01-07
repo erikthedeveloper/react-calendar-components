@@ -40,11 +40,11 @@ const mergeStateProps = (stateProps) => stateProps.reduce(
   })
 );
 
-const MergedState = ({stateProps, children}) => (
+const StoryState = ({stateProps, children}) => (
   <State {...mergeStateProps(stateProps)} children={children} />
 );
 
-MergedState.propTypes = {
+StoryState.propTypes = {
   stateProps: PropTypes.arrayOf(PropTypes.shape({
     initialState: State.propTypes.initialState,
     stateSetters: State.propTypes.stateSetters,
@@ -52,4 +52,4 @@ MergedState.propTypes = {
 };
 
 export default State;
-export { MergedState };
+export { StoryState };
