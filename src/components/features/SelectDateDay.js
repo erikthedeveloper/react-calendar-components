@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { isSameDay } from '../utils/date-utils';
+import { isSameDay } from '../../utils/date-utils';
 
 function selectableDay(Component) {
   // TODO: Rename SelectableDay

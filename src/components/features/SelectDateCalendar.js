@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
-import { compose } from '../utils/utils';
-import Calendar from './Calendar';
-import withProps from './withProps';
-import Day from './Day';
+import { compose } from '../../utils/utils';
+import Calendar from '../Calendar';
+import withProps from '../withProps';
+import Day from '../Day';
 import { selectableDay } from './SelectDateDay';
 
 /**

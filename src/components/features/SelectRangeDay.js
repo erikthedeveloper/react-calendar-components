@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { isInRange, isSameDay } from '../utils/date-utils';
+import { isInRange, isSameDay } from '../../utils/date-utils';
 
 const rangeBarClassName = (date, range) => {
   let className = 'Day__range-bar';

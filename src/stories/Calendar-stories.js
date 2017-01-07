@@ -2,9 +2,9 @@ import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 import { MergedState } from '../components/State';
 import Calendar from '../components/Calendar';
-import SelectDateCalendar, { selectDate } from '../components/SelectDateCalendar';
-import DayIndicatorsCalendar, { dayIndicators } from '../components/DayIndicatorsCalendar';
-import SelectRangeCalendar, { selectRange } from '../components/SelectRangeCalendar';
+import SelectDateCalendar, { selectDate } from '../components/features/SelectDateCalendar';
+import DayIndicatorsCalendar, { dayIndicators } from '../components/features/DayIndicatorsCalendar';
+import SelectRangeCalendar, { selectRange } from '../components/features/SelectRangeCalendar';
 import { compose } from '../utils/utils';
 import {
   monthState,
