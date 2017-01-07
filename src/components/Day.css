@@ -11,9 +11,9 @@
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  width: 50%;
-  height: 50%;
-  border-radius: 50px;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
   border: 1px solid transparent;
 }
 .Day--today .Day__date {
