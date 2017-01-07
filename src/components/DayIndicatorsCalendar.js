@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
+import { compose } from '../utils/utils';
 import Calendar from './Calendar';
+import Day from './Day';
 import withProps from './withProps';
-import IndicatorDay from './IndicatorDay';
+import { indicatorDay } from './IndicatorDay';
 import {isSameDay} from '../utils/date-utils';
 
 const dateHasEvent =
@@ -22,9 +24,12 @@ function dayIndicators(Component) {
       this.displayName =
         `DayIndicatorsCalendar(${Component.displayName || Component.name})`;
 
-      this.DayComponent = withProps((props) => ({
-        hasIndicator: dateHasEvent(props.date, this.props.events),
-      }))(this.props.DayComponent);
+      this.DayComponent = compose([
+        withProps((props) => ({
+          hasIndicator: dateHasEvent(props.date, this.props.events),
+        })),
+        indicatorDay,
+      ])(this.props.DayComponent);
     }
 
     render() {
@@ -33,7 +38,7 @@ function dayIndicators(Component) {
   }
 
   DayIndicatorsCalendar.defaultProps = {
-    DayComponent: IndicatorDay,
+    DayComponent: Day,
   };
 
   DayIndicatorsCalendar.propTypes = {

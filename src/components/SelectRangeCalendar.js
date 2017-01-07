@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
+import { compose } from '../utils/utils';
 import Calendar from './Calendar';
 import withProps from './withProps';
 import Day from './Day';
+import { rangeDay } from './SelectRangeDay';
 
 /**
  * Higher Order Component to add "select range" feature
@@ -16,11 +18,14 @@ function selectRange(Component) {
       this.displayName =
         `SelectRangeCalendar(${Component.displayName || Component.name})`;
 
-      this.DayComponent = withProps((props) => ({
-        range: this.state.range,
-        onClick: () => this.handleClickDate(props.date),
-        onMouseEnter: () => this.handleMouseEnterDate(props.date),
-      }))(this.props.DayComponent);
+      this.DayComponent = compose([
+          withProps((props) => ({
+          range: this.state.range,
+          onClick: () => this.handleClickDate(props.date),
+          onMouseEnter: () => this.handleMouseEnterDate(props.date),
+        })),
+        rangeDay,
+      ])(this.props.DayComponent);
 
       const now = new Date();
       this.state = {

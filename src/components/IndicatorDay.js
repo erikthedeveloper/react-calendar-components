@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import Day from './Day';
 
 function indicatorDay(Component) {
   const IndicatorDay = (props) => {
@@ -26,5 +25,4 @@ function indicatorDay(Component) {
   return IndicatorDay;
 }
 
-export default indicatorDay(Day);
 export { indicatorDay };

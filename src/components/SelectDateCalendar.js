@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
+import { compose } from '../utils/utils';
 import Calendar from './Calendar';
 import withProps from './withProps';
-import SelectDateDay from './SelectDateDay';
+import Day from './Day';
+import { selectableDay } from './SelectDateDay';
 
 /**
  * Higher Order Component to add "select date" feature
@@ -17,10 +19,13 @@ function selectDate(Component) {
       this.displayName =
         `SelectDateCalendar(${Component.displayName || Component.name})`;
 
-      this.DayComponent = withProps(() => ({
-        selectedDate: this.props.selectedDate,
-        selectDate: this.props.selectDate,
-      }))(this.props.DayComponent);
+      this.DayComponent = compose([
+        withProps(() => ({
+          selectedDate: this.props.selectedDate,
+          selectDate: this.props.selectDate,
+        })),
+        selectableDay,
+      ])(this.props.DayComponent);
     }
 
     render() {
@@ -31,7 +36,7 @@ function selectDate(Component) {
   }
 
   SelectDateCalendar.defaultProps = {
-    DayComponent: SelectDateDay,
+    DayComponent: Day,
   };
 
   SelectDateCalendar.propTypes = {

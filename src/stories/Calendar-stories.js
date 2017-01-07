@@ -4,10 +4,6 @@ import State from '../components/State';
 import Calendar from '../components/Calendar';
 import SelectDateCalendar, { selectDate } from '../components/SelectDateCalendar';
 import DayIndicatorsCalendar, { dayIndicators } from '../components/DayIndicatorsCalendar';
-import Day from '../components/Day';
-import { indicatorDay } from '../components/IndicatorDay';
-import { selectableDay } from '../components/SelectDateDay';
-import { rangeDay } from '../components/SelectRangeDay';
 import SelectRangeCalendar, { selectRange } from '../components/SelectRangeCalendar';
 import { compose } from '../utils/utils';
 
@@ -69,12 +65,6 @@ storiesOf('Calendar', module)
   })
 
   .add('SelectDate + DayIndicators', () => {
-
-    const DayComponent = compose([
-      selectableDay,
-      indicatorDay,
-    ])(Day);
-
     const CalendarComponent = compose([
       selectDate,
       dayIndicators,
@@ -96,12 +86,7 @@ storiesOf('Calendar', module)
 
     return (
       <StateComponent>
-        {(stateProps) => (
-          <CalendarComponent
-            {...stateProps}
-            DayComponent={DayComponent}
-          />
-        )}
+        {(stateProps) => <CalendarComponent {...stateProps} />}
       </StateComponent>
     );
   })
@@ -113,17 +98,10 @@ storiesOf('Calendar', module)
   ))
 
   .add('SelectRange + DayIndicators', () => {
-
-    const DayComponent = compose([
-      rangeDay,
-      indicatorDay,
-    ])(Day);
-
     const CalendarComponent = compose([
       dayIndicators,
       selectRange,
     ])(Calendar);
-
 
     const StateComponent = (props) => (
       <MonthState>
@@ -136,12 +114,7 @@ storiesOf('Calendar', module)
 
     return (
       <StateComponent>
-        {(stateProps) => (
-          <CalendarComponent
-            {...stateProps}
-            DayComponent={DayComponent}
-          />
-        )}
+        {(stateProps) => <CalendarComponent {...stateProps} /> }
       </StateComponent>
     );
 
