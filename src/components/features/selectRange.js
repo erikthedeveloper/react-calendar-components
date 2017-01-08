@@ -41,16 +41,20 @@ function selectRange(Component) {
      */
     handleClickDate(date) {
       const {range} = this.state;
-      if (!range.start || date < range.start) {
-        this.setState({
-          range: {start: date, end: undefined},
-        });
-        return;
-      }
 
-      this.setState({
-        range: {start: range.start, end: date},
-      });
+      // Do we have a start date and need an end date
+      // AND is this date is after our start date?
+      const useAsEndDate =
+        (range.start && !range.end) &&
+        date >= range.start;
+
+      const newRange = useAsEndDate
+        // Set as end. Keep rest.
+        ? {...range, end: date}
+        // Clear end/hover. Set as start
+        : {start: date};
+
+      this.setState({range: newRange});
     }
 
     /**
