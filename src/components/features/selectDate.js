@@ -9,14 +9,11 @@ import { selectDateDay } from './selectDateDay';
  * @param {Component} Component
  * @return {SelectDateCalendar}
  */
-function selectDate(Component) {
+export function selectDate(Component) {
 
   class SelectDateCalendar extends React.Component {
     constructor() {
       super(...arguments);
-
-      this.displayName =
-        `SelectDateCalendar(${Component.displayName || Component.name})`;
 
       this.DayComponent = compose([
         withProps(() => ({
@@ -45,5 +42,3 @@ function selectDate(Component) {
 
   return SelectDateCalendar;
 }
-
-export { selectDate };

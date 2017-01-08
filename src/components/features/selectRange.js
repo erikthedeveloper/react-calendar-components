@@ -9,13 +9,10 @@ import { selectRangeDay } from './selectRangeDay';
  * @param {Component} Component
  * @return {SelectRangeCalendar}
  */
-function selectRange(Component) {
+export function selectRange(Component) {
   class SelectRangeCalendar extends React.Component {
     constructor() {
       super(...arguments);
-
-      this.displayName =
-        `SelectRangeCalendar(${Component.displayName || Component.name})`;
 
       this.DayComponent = compose([
         withProps((props) => ({
@@ -93,5 +90,3 @@ function selectRange(Component) {
 
   return SelectRangeCalendar;
 }
-
-export { selectRange };

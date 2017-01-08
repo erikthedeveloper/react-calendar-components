@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-function indicatorDay(Component) {
+export function indicatorDay(Component) {
   const IndicatorDay = (props) => {
     return (
       <Component {...props}>
@@ -12,14 +12,9 @@ function indicatorDay(Component) {
     );
   };
 
-  IndicatorDay.displayName =
-    `IndicatorDay(${Component.displayName || Component.name})`;
-
   IndicatorDay.propTypes = {
     hasIndicator: PropTypes.bool,
   };
 
   return IndicatorDay;
 }
-
-export { indicatorDay };

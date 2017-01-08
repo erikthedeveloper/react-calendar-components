@@ -15,13 +15,10 @@ const dateHasEvent =
  * @param {Component} Component
  * @return {IndicatorCalendar}
  */
-function indicators(Component) {
+export function indicators(Component) {
   class IndicatorCalendar extends React.Component {
     constructor() {
       super(...arguments);
-
-      this.displayName =
-        `IndicatorCalendar(${Component.displayName || Component.name})`;
 
       this.DayComponent = compose([
         withProps((props) => ({
@@ -50,5 +47,3 @@ function indicators(Component) {
 
   return IndicatorCalendar;
 }
-
-export { indicators };
