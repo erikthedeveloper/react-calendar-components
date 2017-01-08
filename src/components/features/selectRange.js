@@ -19,53 +19,56 @@ function selectRange(Component) {
 
       this.DayComponent = compose([
         withProps((props) => ({
-          range: this.state.range,
+          range: {
+            ...this.props.range,
+            hoverDate: this.state.hoverDate,
+          },
           onClick: () => this.handleClickDate(props.date),
           onMouseEnter: () => this.handleMouseEnterDate(props.date),
         })),
         selectRangeDay,
       ])(this.props.DayComponent);
 
-      const now = new Date();
       this.state = {
-        range: {
-          start: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 5),
-          end: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 13),
-          hover: undefined,
-        },
+        hoverDate: undefined,
       };
+    }
+
+    componentDidUpdate(prevProps) {
+      // "React to state change"
+      if (prevProps.range.end && !this.props.range.end) {
+        this.setState({hoverDate: undefined});
+      }
     }
 
     /**
      * @param {Date} date
      */
     handleClickDate(date) {
-      const {range} = this.state;
+      const {range} = this.props;
 
-      // Do we have a start date and need an end date
-      // AND is this date is after our start date?
       const useAsEndDate =
+        // Do we have a start date and need an end date
         (range.start && !range.end) &&
+        // AND is this date is after our start date?
         date >= range.start;
 
-      const newRange = useAsEndDate
-        // Set as end. Keep rest.
-        ? {...range, end: date}
-        // Clear end/hover. Set as start
-        : {start: date};
-
-      this.setState({range: newRange});
+      this.props.setRange(
+        useAsEndDate
+          // Keep start. Set as end.
+          ? {start: range.start, end: date}
+          // Set as start. Clear end.
+          : {start: date, end: undefined}
+      );
     }
 
     /**
      * @param {Date} date
      */
     handleMouseEnterDate(date) {
-      const {range} = this.state;
+      const {range} = this.props;
       if (range.start && !range.end) {
-        this.setState({
-          range: {...this.state.range, hover: date},
-        });
+        this.setState({hoverDate: date});
       }
     }
 
@@ -75,6 +78,14 @@ function selectRange(Component) {
       );
     }
   }
+
+  SelectRangeCalendar.propTypes = {
+    range: PropTypes.shape({
+      start: PropTypes.instanceOf(Date),
+      end: PropTypes.instanceOf(Date),
+    }).isRequired,
+    setRange: PropTypes.func.isRequired,
+  };
 
   SelectRangeCalendar.defaultProps = {
     DayComponent: Day,

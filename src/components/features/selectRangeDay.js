@@ -16,12 +16,12 @@ const rangeBarClassName = (date, range) => {
 function selectRangeDay(Component) {
 
   const RangeDay = (props) => {
-    const {start, end, hover} = props.range;
+    const {start, end, hoverDate} = props.range;
 
     const displayRangeBar = isInRange(
       props.date,
       start,
-      end || hover || start
+      end || hoverDate || start
     );
 
     return (

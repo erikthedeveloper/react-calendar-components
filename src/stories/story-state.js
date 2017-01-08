@@ -22,6 +22,18 @@ export const selectDateState = {
   }),
 };
 
+export const selectRangeState = {
+  initialState: {
+    range: {
+      start: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 5),
+      end: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 13),
+    }
+  },
+  stateSetters: (setState) => ({
+    setRange: (range) => setState({range}),
+  }),
+};
+
 export const eventsState = {
   initialState: {events: dummyEvents},
   stateSetters: () => ({}),

@@ -7,6 +7,7 @@ import { compose } from '../utils/utils';
 import {
   monthState,
   selectDateState,
+  selectRangeState,
   eventsState,
 } from './story-state';
 
@@ -48,7 +49,7 @@ storiesOf('Calendar', module)
   })
 
   .add('SelectRangeCalendar', () => (
-    <StoryState stateProps={[monthState]}>
+    <StoryState stateProps={[monthState, selectRangeState]}>
       {(stateProps) => <SelectRangeCalendar {...stateProps} />}
     </StoryState>
   ))
@@ -60,7 +61,7 @@ storiesOf('Calendar', module)
     ])(Calendar);
 
     return (
-      <StoryState stateProps={[monthState, eventsState]}>
+      <StoryState stateProps={[monthState, eventsState, selectRangeState]}>
         {(stateProps) => <CalendarComponent {...stateProps} /> }
       </StoryState>
     );
@@ -93,7 +94,7 @@ storiesOf('Calendar', module)
     ])(Calendar);
 
     return (
-      <StoryState stateProps={[monthState, eventsState]}>
+      <StoryState stateProps={[monthState, eventsState, selectRangeState]}>
         {(stateProps) => <CalendarComponent {...stateProps} /> }
       </StoryState>
     );
