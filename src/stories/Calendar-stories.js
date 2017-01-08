@@ -64,4 +64,37 @@ storiesOf('Calendar', module)
         {(stateProps) => <CalendarComponent {...stateProps} /> }
       </StoryState>
     );
+  })
+
+  .add('Disable Weekends (inline example)', () => {
+    const isWeekend = (date) => [0, 6].includes(date.getDay());
+    /**
+     * HoC with argument(s) to enhance Day
+     * @param {function(Date): bool} shouldDisable
+     */
+    const disableDay = (shouldDisable) => (Day) => (props) => (
+      <Day
+        {...props}
+        disabled={props.disabled || shouldDisable(props.date)}
+      />
+    );
+    /** HoC to enhance Calendar. Enhances its own DayComponent as needed */
+    const disableWeekends = (Calendar) => (props) => (
+      <Calendar
+        {...props}
+        DayComponent={disableDay(isWeekend)(props.DayComponent)}
+      />
+    );
+
+    const CalendarComponent = compose([
+      indicators,
+      selectRange,
+      disableWeekends,
+    ])(Calendar);
+
+    return (
+      <StoryState stateProps={[monthState, eventsState]}>
+        {(stateProps) => <CalendarComponent {...stateProps} /> }
+      </StoryState>
+    );
   });
