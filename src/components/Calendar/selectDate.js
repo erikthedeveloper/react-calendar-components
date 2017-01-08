@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import { compose } from '../../utils/utils';
 import withProps from '../withProps';
-import Day from '../Day';
-import { selectDateDay } from './selectDateDay';
+import Day from '../Day/Day';
+import { selectDateDay } from '../Day/selectDateDay';
 
 /**
  * Higher Order Component to add "select date" feature

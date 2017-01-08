@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import { compose } from '../../utils/utils';
-import Day from '../Day';
+import Day from '../Day/Day';
 import withProps from '../withProps';
-import { indicatorDay } from './indicatorDay';
-import {isSameDay} from '../../utils/date-utils';
+import { indicatorDay } from '../Day/indicatorDay';
+import { isSameDay } from '../../utils/date-utils';
 
 const dateHasEvent =
   (date, events) => events.some(

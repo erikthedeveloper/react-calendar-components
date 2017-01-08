@@ -1,8 +1,10 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 import { StoryState } from '../components/State';
-import Calendar from '../components/Calendar';
-import { selectDate, indicators, selectRange } from '../components/features';
+import Calendar from '../components/Calendar/Calendar';
+import { selectDate } from '../components/Calendar/selectDate';
+import { indicators } from '../components/Calendar/indicators';
+import { selectRange } from '../components/Calendar/selectRange';
 import { compose } from '../utils/utils';
 import {
   monthState,
