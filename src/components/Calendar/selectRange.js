@@ -13,6 +13,8 @@ export function selectRange(Component) {
   class SelectRangeCalendar extends React.Component {
     constructor() {
       super(...arguments);
+      this.handleClickDate = this.handleClickDate.bind(this);
+      this.handleMouseEnterDate = this.handleMouseEnterDate.bind(this);
 
       this.DayComponent = compose([
         withProps((props) => ({
@@ -20,8 +22,8 @@ export function selectRange(Component) {
             ...this.props.range,
             hoverDate: this.state.hoverDate,
           },
-          onClick: () => this.handleClickDate(props.date),
-          onMouseEnter: () => this.handleMouseEnterDate(props.date),
+          handleClickDate: this.handleClickDate,
+          handleMouseEnterDate: this.handleMouseEnterDate,
         })),
         selectRangeDay,
       ])(this.props.DayComponent);

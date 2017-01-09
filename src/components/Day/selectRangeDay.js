@@ -25,8 +25,8 @@ export function selectRangeDay(Component) {
 
     return (
       <Component
-        onClick={props.onClick}
-        onMouseEnter={props.onMouseEnter}
+        onClick={() => props.handleClickDate(props.date)}
+        onMouseEnter={() => props.handleMouseEnterDate(props.date)}
         {...props}
       >
         {props.children}
@@ -35,6 +35,16 @@ export function selectRangeDay(Component) {
         )}
       </Component>
     );
+  };
+
+  RangeDay.propTypes = {
+    range: PropTypes.shape({
+      start: PropTypes.instanceOf(Date),
+      end: PropTypes.instanceOf(Date),
+      hoverDate: PropTypes.instanceOf(Date),
+    }).isRequired,
+    handleClickDate: PropTypes.func.isRequired,
+    handleMouseEnterDate: PropTypes.func.isRequired,
   };
 
   return RangeDay;
