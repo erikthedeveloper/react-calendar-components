@@ -25,19 +25,25 @@ storiesOf('Calendar', module)
     </StoryState>
   ))
 
-  .add('SelectDateCalendar', () => (
+  .add('Select Date', () => (
     <StoryState stateProps={[monthState, selectDateState]}>
       {(stateProps) => <SelectDateCalendar {...stateProps} />}
     </StoryState>
   ))
 
-  .add('IndicatorCalendar', () => (
+  .add('Day Indicators', () => (
     <StoryState stateProps={[monthState, eventsState]}>
       {(stateProps) => <DayIndicatorsCalendar {...stateProps} />}
     </StoryState>
   ))
 
-  .add('SelectDate + DayIndicators', () => {
+  .add('Select Range', () => (
+    <StoryState stateProps={[monthState, selectRangeState]}>
+      {(stateProps) => <SelectRangeCalendar {...stateProps} />}
+    </StoryState>
+  ))
+
+  .add('Select Date + Day Indicators', () => {
     const CalendarComponent = compose([
       selectDate,
       indicators,
@@ -50,13 +56,7 @@ storiesOf('Calendar', module)
     );
   })
 
-  .add('SelectRangeCalendar', () => (
-    <StoryState stateProps={[monthState, selectRangeState]}>
-      {(stateProps) => <SelectRangeCalendar {...stateProps} />}
-    </StoryState>
-  ))
-
-  .add('SelectRange + DayIndicators', () => {
+  .add('Select Range + Day Indicators', () => {
     const CalendarComponent = compose([
       indicators,
       selectRange,
