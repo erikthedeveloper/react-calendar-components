@@ -7,7 +7,7 @@ A _*zero-dependency_ project that explores various _**React_ concepts and serves
 * _*Zero dependencies, Javascript or otherwise, beyond [React](facebook.github.io/react/)_
 * _**I'm aiming to keep this compatible with others such as [Preact](https://preactjs.com/)_ and [Inferno](https://infernojs.org/)
 
-Poke around [src/components/](src/components/), [src/stories/](src/stories/), or go play with the [live examples via Storybook](http://erikthedeveloper.github.io/react-calendar-components/storybook/)
+Poke around [src/components/](src/components/), [src/stories/](src/stories/), or go play with the [live examples via Storybook](https://erikthedeveloper.github.io/react-calendar-components/)
 
 ![composingcalendarfun](https://cloud.githubusercontent.com/assets/1240178/21851184/223de5de-d7cb-11e6-8ca2-120364b5b317.gif)
 

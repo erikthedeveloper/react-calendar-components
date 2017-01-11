@@ -6,10 +6,12 @@
     "start": "yarn run storybook",
     "test": "react-scripts test --env=jsdom",
     "storybook": "start-storybook -p 9009 -s public",
+    "deploy-storybook": "storybook-to-ghpages",
     "build-storybook": "build-storybook -s public"
   },
   "devDependencies": {
     "@kadira/storybook": "^2.21.0",
+    "@kadira/storybook-deployer": "^1.2.0",
     "react-scripts": "0.8.4"
   },
   "dependencies": {
