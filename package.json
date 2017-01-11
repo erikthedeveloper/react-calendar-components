@@ -1,21 +1,27 @@
 {
-  "name": "React-Calendar",
+  "name": "react-calendar-components",
+  "description": "A *zero-dependency project that explores various React-related concepts and serves as a learning example.",
   "version": "0.1.0",
-  "private": true,
+  "scripts": {
+    "start": "yarn run storybook",
+    "test": "react-scripts test --env=jsdom",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
+  },
   "devDependencies": {
-    "react-scripts": "0.8.4",
-    "@kadira/storybook": "^2.21.0"
+    "@kadira/storybook": "^2.21.0",
+    "react-scripts": "0.8.4"
   },
   "dependencies": {
     "react": "^15.4.1",
     "react-dom": "^15.4.1"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
-  }
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/erikthedeveloper/react-calendar-components.git"
+  },
+  "author": "Erik Aybar <erikthedeveloper@gmail.com>",
+  "license": "MIT",
+  "private": true
 }
