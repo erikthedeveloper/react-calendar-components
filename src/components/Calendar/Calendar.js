@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import './Calendar.css';
-import { calendarMonthDates, isSameMonth, isSameDay } from '../utils/date-utils';
-import Day from './Day';
-import MonthGrid from './MonthGrid';
+import { calendarMonthDates, isSameMonth, isSameDay } from '../../utils/date-utils';
+import Day from '../Day/Day';
+import MonthGrid from '../MonthGrid';
 
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];

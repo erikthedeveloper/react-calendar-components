@@ -22,4 +22,34 @@ State.propTypes = {
   stateSetters: PropTypes.func.isRequired,
 };
 
+/**
+ * Merge multiple [{initialState, stateSetters}, ...]
+ * @param stateProps
+ * @return {{initialState, stateSetters}}
+ */
+const mergeStateProps = (stateProps) => stateProps.reduce(
+  (merged, props) => ({
+    initialState: {
+      ...merged.initialState,
+      ...props.initialState,
+    },
+    stateSetters: (setState) => ({
+      ...merged.stateSetters(setState),
+      ...props.stateSetters(setState),
+    }),
+  })
+);
+
+const StoryState = ({stateProps, children}) => (
+  <State {...mergeStateProps(stateProps)} children={children} />
+);
+
+StoryState.propTypes = {
+  stateProps: PropTypes.arrayOf(PropTypes.shape({
+    initialState: State.propTypes.initialState,
+    stateSetters: State.propTypes.stateSetters,
+  }))
+};
+
 export default State;
+export { StoryState };
