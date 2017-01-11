@@ -1,5 +1,25 @@
 import React, { PropTypes } from 'react';
 
+/**
+ * Render callback component to house state.
+ *  Useful for feeding stateless components with state
+ *  Example: in Storybook stories (see src/stories/)
+ *
+ * @example
+ * <State
+ *   initialState={{count: 1}}
+ *   stateSetters={(setState) => ({
+ *     setCount: (count) => setState({count}),
+ *   })}
+ * >
+ *   {(stateProps) => (
+ *     <SomeComponent
+ *       count={stateProps.count}
+ *       setCount={stateProps.setCount}
+ *     />
+ *   )}
+ * </State>
+ */
 class State extends React.Component {
   constructor() {
     super(...arguments);
@@ -15,10 +35,6 @@ class State extends React.Component {
 State.propTypes = {
   children: PropTypes.func.isRequired,
   initialState: PropTypes.object.isRequired,
-  /* stateSetters = (setState) => ({
-    setFoo: (foo) => setState({foo}),
-    // ...
-  }) */
   stateSetters: PropTypes.func.isRequired,
 };
 
