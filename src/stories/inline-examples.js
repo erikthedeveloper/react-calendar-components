@@ -123,9 +123,14 @@ storiesOf('Inline Examples', module)
       return SelectMultipleCalendar;
     }
 
+    const now = new Date();
+
     // State to plug into story
     const selectMultipleState = {
-      initialState: {selectedDates: []},
+      initialState: {
+        selectedDates: [-3, 2, 7, 15]
+          .map((addDays) => new Date(now.getFullYear(), now.getMonth(), now.getDate() + addDays))
+      },
       stateSetters: (setState) => ({
         setSelectedDates: (selectedDates) => setState({selectedDates}),
       }),
