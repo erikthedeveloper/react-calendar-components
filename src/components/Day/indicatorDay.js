@@ -5,7 +5,7 @@ export function indicatorDay(Component) {
     return (
       <Component {...props}>
         {props.children}
-        {props.hasIndicator && (
+        {props.hasIndicator(props.date) && (
           <span className="Day__indicator" />
         )}
       </Component>
@@ -13,7 +13,7 @@ export function indicatorDay(Component) {
   };
 
   IndicatorDay.propTypes = {
-    hasIndicator: PropTypes.bool,
+    hasIndicator: PropTypes.func.isRequired,
   };
 
   return IndicatorDay;

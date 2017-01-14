@@ -1,14 +1,8 @@
 import React, { PropTypes } from 'react';
 import { compose } from '../../utils/utils';
 import Day from '../Day/Day';
-import withProps from '../withProps';
 import { indicatorDay } from '../Day/indicatorDay';
 import { isSameDay } from '../../utils/date-utils';
-
-const dateHasEvent =
-  (date, events) => events.some(
-    (event) => isSameDay(event.date, date)
-  );
 
 /**
  * Higher Order Component to add "day indicators" feature
@@ -20,10 +14,19 @@ export function indicators(Component) {
     constructor() {
       super(...arguments);
 
+      const hasIndicator = (date) => this.props.events.some(
+        (event) => isSameDay(event.date, date)
+      );
+
+      // The enhanced props.DayComponent
       this.DayComponent = compose([
-        withProps((props) => ({
-          hasIndicator: dateHasEvent(props.date, this.props.events),
-        })),
+        // 02 - Provide the enhanced DayComponent with
+        // the required hasIndicator(Date):bool function
+        (DayComponent) => (props) => (
+          <DayComponent {...props} hasIndicator={hasIndicator} />
+        ),
+
+        // 01 - Enhance the DayComponent
         indicatorDay,
       ])(this.props.DayComponent);
     }
