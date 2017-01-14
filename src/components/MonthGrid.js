@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { chunk } from '../utils/utils';
+import { chunk } from 'lodash';
 import './MonthGrid.css';
 
 const MonthGrid = (props) => {

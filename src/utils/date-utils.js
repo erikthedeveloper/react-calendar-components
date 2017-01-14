@@ -1,4 +1,4 @@
-import { range } from './utils';
+import { range } from 'lodash';
 
 export const isSameYear = (a, b) =>
   a.getFullYear() === b.getFullYear();

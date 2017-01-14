@@ -5,7 +5,7 @@ import Calendar from '../components/Calendar/Calendar';
 import { selectDate } from '../components/Calendar/selectDate';
 import { indicators } from '../components/Calendar/indicators';
 import { selectRange } from '../components/Calendar/selectRange';
-import { compose } from '../utils/utils';
+import { flowRight as compose } from 'lodash';
 import {
   monthState,
   selectDateState,

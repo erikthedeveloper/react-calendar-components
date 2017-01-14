@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { storiesOf } from '@kadira/storybook';
 import { StoryState } from '../components/State';
 import { monthState } from './story-state';
-import { compose } from '../utils/utils';
+import { flowRight as compose } from 'lodash';
 import { isSameDay } from '../utils/date-utils';
 import Calendar from '../components/Calendar/Calendar';
 import Day from '../components/Day/Day';

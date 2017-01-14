@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { compose } from '../../utils/utils';
+import { flowRight as compose } from 'lodash';
 import Day from '../Day/Day';
 import { indicatorDay } from '../Day/indicatorDay';
 import { isSameDay } from '../../utils/date-utils';

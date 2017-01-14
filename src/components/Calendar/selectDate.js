@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { compose } from '../../utils/utils';
+import { flowRight as compose } from 'lodash';
 import withProps from '../withProps';
 import Day from '../Day/Day';
 import { selectDateDay } from '../Day/selectDateDay';
