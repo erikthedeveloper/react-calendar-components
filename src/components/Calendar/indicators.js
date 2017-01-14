@@ -14,9 +14,17 @@ export function indicators(CalendarComponent) {
     constructor() {
       super(...arguments);
 
+      this.dayHasEvent = this.dayHasEvent.bind(this);
+
       // This ensures we only enhance once per props.DayComponent
       // and avoid unnecessarily enhancing on every render
       this.enhanceDayComponent = memoize(this.enhanceDayComponent.bind(this));
+    }
+
+    dayHasEvent(date) {
+      return this.props.events.some(
+        (event) => isSameDay(event.date, date)
+      );
     }
 
     /**
@@ -24,15 +32,11 @@ export function indicators(CalendarComponent) {
      * @return {Component} The enhanced DayComponent
      */
     enhanceDayComponent(DayComponent) {
-      const hasIndicator = (date) => this.props.events.some(
-        (event) => isSameDay(event.date, date)
-      );
-
       return compose([
         // 02 - Provide the enhanced DayComponent with
         // the required hasIndicator(Date):bool function
         (DayComponent) => (props) => (
-          <DayComponent {...props} hasIndicator={hasIndicator} />
+          <DayComponent {...props} hasIndicator={this.dayHasEvent} />
         ),
 
         // 01 - Enhance the DayComponent to enable indicators
