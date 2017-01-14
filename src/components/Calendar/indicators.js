@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { flowRight as compose } from 'lodash';
+import { flowRight as compose, memoize } from 'lodash';
 import Day from '../Day/Day';
 import { indicatorDay } from '../Day/indicatorDay';
 import { isSameDay } from '../../utils/date-utils';
@@ -14,21 +14,9 @@ export function indicators(CalendarComponent) {
     constructor() {
       super(...arguments);
 
-      this.state = {
-        // Create enhancedDayComponent and store in state.
-        enhancedDayComponent: this.enhanceDayComponent(this.props.DayComponent),
-      };
-    }
-
-    componentDidUpdate(prevProps) {
-      // We don't want to create this on every render, but we also want
-      // to account for the fact that props.DayComponent could change
-      // We only want to re-create if props.DayComponent changed.
-      // Treat this as a "computed property".
-      if (prevProps.DayComponent !== this.props.DayComponent) {
-        const enhancedDayComponent = this.enhanceDayComponent(this.props.DayComponent);
-        this.setState({enhancedDayComponent});
-      }
+      // This ensures we only enhance once per props.DayComponent
+      // and avoid unnecessarily enhancing on every render
+      this.enhanceDayComponent = memoize(this.enhanceDayComponent.bind(this));
     }
 
     /**
@@ -53,7 +41,8 @@ export function indicators(CalendarComponent) {
     }
 
     render() {
-      return <CalendarComponent {...this.props} DayComponent={this.state.enhancedDayComponent} />
+      const enhancedDayComponent = this.enhanceDayComponent(this.props.DayComponent);
+      return <CalendarComponent {...this.props} DayComponent={enhancedDayComponent} />
     }
   }
 
