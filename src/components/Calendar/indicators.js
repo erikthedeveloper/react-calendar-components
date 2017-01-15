@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
-import { flowRight as compose, memoize } from 'lodash';
+import { flowRight as compose } from 'lodash';
 import Day from '../Day/Day';
+import EnhanceDay from './EnhanceDay';
 import { indicatorDay } from '../Day/indicatorDay';
 import { isSameDay } from '../../utils/date-utils';
 
@@ -15,24 +16,7 @@ export function indicators(CalendarComponent) {
       super(...arguments);
 
       this.dayHasEvent = this.dayHasEvent.bind(this);
-
-      // This ensures we only enhance once per props.DayComponent
-      // and avoid unnecessarily enhancing on every render
-      this.enhanceDayComponent = memoize(this.enhanceDayComponent.bind(this));
-    }
-
-    dayHasEvent(date) {
-      return this.props.events.some(
-        (event) => isSameDay(event.date, date)
-      );
-    }
-
-    /**
-     * @param {Component} DayComponent
-     * @return {Component} The enhanced DayComponent
-     */
-    enhanceDayComponent(DayComponent) {
-      return compose([
+      this.enhanceDay = compose([
         // 02 - Provide the enhanced DayComponent with
         // the required hasIndicator(Date):bool function
         (DayComponent) => (props) => (
@@ -41,12 +25,24 @@ export function indicators(CalendarComponent) {
 
         // 01 - Enhance the DayComponent to enable indicators
         indicatorDay,
-      ])(DayComponent);
+      ]);
+    }
+
+    dayHasEvent(date) {
+      return this.props.events.some(
+        (event) => isSameDay(event.date, date)
+      );
     }
 
     render() {
-      const enhancedDayComponent = this.enhanceDayComponent(this.props.DayComponent);
-      return <CalendarComponent {...this.props} DayComponent={enhancedDayComponent} />
+      return (
+        <EnhanceDay
+          DayComponent={this.props.DayComponent}
+          enhanceDay={this.enhanceDay}
+        >
+          {(EnhancedDay) => <CalendarComponent {...this.props} DayComponent={EnhancedDay} />}
+        </EnhanceDay>
+      )
     }
   }
 

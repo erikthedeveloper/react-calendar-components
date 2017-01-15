@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { flowRight as compose } from 'lodash';
 import withProps from '../withProps';
 import Day from '../Day/Day';
+import EnhanceDay from './EnhanceDay';
 import { selectDateDay } from '../Day/selectDateDay';
 
 /**
@@ -15,18 +16,23 @@ export function selectDate(Component) {
     constructor() {
       super(...arguments);
 
-      this.DayComponent = compose([
+      this.enhanceDay = compose([
         withProps(() => ({
           selectedDate: this.props.selectedDate,
           selectDate: this.props.selectDate,
         })),
         selectDateDay,
-      ])(this.props.DayComponent);
+      ]);
     }
 
     render() {
       return (
-        <Component {...this.props} DayComponent={this.DayComponent} />
+        <EnhanceDay
+          DayComponent={this.props.DayComponent}
+          enhanceDay={this.enhanceDay}
+        >
+          {(EnhancedDay) => <Component {...this.props} DayComponent={EnhancedDay} />}
+        </EnhanceDay>
       );
     }
   }

@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { flowRight as compose } from 'lodash';
 import withProps from '../withProps';
 import Day from '../Day/Day';
+import EnhanceDay from './EnhanceDay';
 import { selectRangeDay } from '../Day/selectRangeDay';
 
 /**
@@ -16,7 +17,7 @@ export function selectRange(Component) {
       this.handleClickDate = this.handleClickDate.bind(this);
       this.handleMouseEnterDate = this.handleMouseEnterDate.bind(this);
 
-      this.DayComponent = compose([
+      this.enhanceDay = compose([
         withProps((props) => ({
           range: {
             ...this.props.range,
@@ -26,7 +27,7 @@ export function selectRange(Component) {
           handleMouseEnterDate: this.handleMouseEnterDate,
         })),
         selectRangeDay,
-      ])(this.props.DayComponent);
+      ]);
 
       this.state = {
         hoverDate: undefined,
@@ -73,7 +74,12 @@ export function selectRange(Component) {
 
     render() {
       return (
-        <Component {...this.props} DayComponent={this.DayComponent} />
+        <EnhanceDay
+          DayComponent={this.props.DayComponent}
+          enhanceDay={this.enhanceDay}
+        >
+          {(EnhancedDay) => <Component {...this.props} DayComponent={EnhancedDay} />}
+        </EnhanceDay>
       );
     }
   }
