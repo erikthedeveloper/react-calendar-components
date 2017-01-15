@@ -1,23 +1,22 @@
 import React, { PropTypes } from 'react';
-import { isSameDay } from '../../utils/date-utils';
 
-export function selectDateDay(Component) {
+export function selectDateDay(DayComponent) {
   const SelectDateDay = (props) => {
-    const additionalProps = {
-      selected: (
-        props.selectedDate &&
-        isSameDay(props.date, props.selectedDate)
-      ),
-      onClick: () => props.selectDate(props.date),
+    const {selectDate, selected, ...otherProps} = props;
+
+    const enhancedProps = {
+      ...otherProps,
+      selected,
+      onClick: () => selectDate(props.date),
     };
 
-    return <Component {...props} {...additionalProps} />;
+    return <DayComponent {...enhancedProps} />;
   };
 
   SelectDateDay.propTypes = {
     date: PropTypes.instanceOf(Date).isRequired,
     selectDate: PropTypes.func.isRequired,
-    selectedDate: PropTypes.instanceOf(Date),
+    selected: PropTypes.bool.isRequired,
   };
 
   return SelectDateDay;

@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import { flowRight as compose } from 'lodash';
-import withProps from '../withProps';
 import Day from '../Day/Day';
 import EnhanceDay from './EnhanceDay';
+import { isSameDay } from '../../utils/date-utils';
 import { selectDateDay } from '../Day/selectDateDay';
 
 /**
@@ -17,12 +17,24 @@ export function selectDate(Component) {
       super(...arguments);
 
       this.enhanceDay = compose([
-        withProps(() => ({
-          selectedDate: this.props.selectedDate,
-          selectDate: this.props.selectDate,
-        })),
+        this.withSelectDateProps.bind(this),
         selectDateDay,
       ]);
+    }
+
+    withSelectDateProps(DayComponent) {
+      const WithSelectDateProps = (props) => (
+        <DayComponent
+          {...props}
+          selectDate={this.props.selectDate}
+          selected={(
+            this.props.selectedDate &&
+            isSameDay(props.date, this.props.selectedDate)
+          )}
+        />
+      );
+
+      return WithSelectDateProps;
     }
 
     render() {
