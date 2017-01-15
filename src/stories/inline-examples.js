@@ -5,6 +5,7 @@ import { monthState } from './story-state';
 import { flowRight as compose } from 'lodash';
 import { isSameDay } from '../utils/date-utils';
 import Calendar from '../components/Calendar/Calendar';
+import EnhanceDay from '../components/Calendar/EnhanceDay';
 import Day from '../components/Day/Day';
 
 /**
@@ -84,7 +85,7 @@ storiesOf('Inline Examples', module)
           super(...arguments);
           this.toggleDate = this.toggleDate.bind(this);
 
-          this.DayComponent = compose([
+          this.enhanceDay = compose([
             (Component) => (props) => (
               <Component
                 {...props}
@@ -93,7 +94,7 @@ storiesOf('Inline Examples', module)
               />
             ),
             selectMultipleDay,
-          ])(this.props.DayComponent);
+          ]);
         }
 
         toggleDate(date) {
@@ -107,7 +108,14 @@ storiesOf('Inline Examples', module)
         }
 
         render() {
-          return <Component {...this.props} DayComponent={this.DayComponent} />;
+          return (
+            <EnhanceDay
+              DayComponent={this.props.DayComponent}
+              enhanceDay={this.enhanceDay}
+            >
+              {(EnhancedDay) => <Component {...this.props} DayComponent={EnhancedDay} />}
+            </EnhanceDay>
+          );
         }
       }
 
