@@ -15,23 +15,25 @@ export function indicators(CalendarComponent) {
     constructor() {
       super(...arguments);
 
-      this.dayHasEvent = this.dayHasEvent.bind(this);
       this.enhanceDay = compose([
-        // 02 - Provide the enhanced DayComponent with
-        // the required hasIndicator(Date):bool function
-        (DayComponent) => (props) => (
-          <DayComponent {...props} hasIndicator={this.dayHasEvent} />
-        ),
-
+        // 02 - Provide the enhanced DayComponent with required props
+        this.withIndicatorProps.bind(this),
         // 01 - Enhance the DayComponent to enable indicators
         indicatorDay,
       ]);
     }
 
-    dayHasEvent(date) {
-      return this.props.events.some(
-        (event) => isSameDay(event.date, date)
+    withIndicatorProps(DayComponent) {
+      const WithIndicatorProps = (props) => (
+        <DayComponent
+          {...props}
+          hasIndicator={this.props.events.some(
+            (event) => isSameDay(event.date, props.date)
+          )}
+        />
       );
+
+      return WithIndicatorProps;
     }
 
     render() {
