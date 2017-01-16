@@ -8,21 +8,14 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 class Calendar extends React.Component {
-  constructor() {
-    super(...arguments);
-
-    this.incrementMonth = this.incrementMonth.bind(this);
-    this.decrementMonth = this.decrementMonth.bind(this);
-  }
-
-  incrementMonth() {
+  incrementMonth = () => {
     this.props.setCurrentMonth(new Date(
       this.props.currentMonth.getFullYear(),
       this.props.currentMonth.getMonth() + 1
     ));
   }
 
-  decrementMonth() {
+  decrementMonth = () => {
     this.props.setCurrentMonth(new Date(
       this.props.currentMonth.getFullYear(),
       this.props.currentMonth.getMonth() - 1

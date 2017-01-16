@@ -14,8 +14,6 @@ export function selectRange(CalendarComponent) {
   class SelectRangeCalendar extends React.Component {
     constructor() {
       super(...arguments);
-      this.handleClickDate = this.handleClickDate.bind(this);
-      this.handleMouseEnterDate = this.handleMouseEnterDate.bind(this);
 
       this.enhanceDay = compose([
         withProps((props) => ({
@@ -44,7 +42,7 @@ export function selectRange(CalendarComponent) {
     /**
      * @param {Date} date
      */
-    handleClickDate(date) {
+    handleClickDate = (date) => {
       const {range} = this.props;
 
       const useAsEndDate =
@@ -65,7 +63,7 @@ export function selectRange(CalendarComponent) {
     /**
      * @param {Date} date
      */
-    handleMouseEnterDate(date) {
+    handleMouseEnterDate = (date) => {
       const {range} = this.props;
       if (range.start && !range.end) {
         this.setState({hoverDate: date});

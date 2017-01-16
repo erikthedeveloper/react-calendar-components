@@ -83,7 +83,6 @@ storiesOf('Inline Examples', module)
       class SelectMultipleCalendar extends React.Component {
         constructor() {
           super(...arguments);
-          this.toggleDate = this.toggleDate.bind(this);
 
           this.enhanceDay = compose([
             (Component) => (props) => (
@@ -97,7 +96,7 @@ storiesOf('Inline Examples', module)
           ]);
         }
 
-        toggleDate(date) {
+        toggleDate = (date) => {
           const {selectedDates} = this.props;
 
           const newSelectedDates = containsDate(selectedDates, date)
