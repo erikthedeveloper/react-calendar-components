@@ -1,17 +1,6 @@
 import React, { PropTypes } from 'react';
+import classnames from 'classnames';
 import { isInRange, isSameDay } from '../../utils/date-utils';
-
-const rangeBarClassName = (date, range) => {
-  let className = 'Day__range-bar';
-  if (range.start && isSameDay(date, range.start)) {
-    className += ' Day__range-bar--start';
-  }
-  if (range.end && isSameDay(date, range.end)) {
-    className += ' Day__range-bar--end';
-  }
-
-  return className;
-};
 
 export function selectRangeDay(Component) {
   const RangeDay = (props) => {
@@ -23,6 +12,18 @@ export function selectRangeDay(Component) {
       end || hoverDate || start
     );
 
+    const barClassName = classnames(
+      'Day__range-bar',
+      {
+        'Day__range-bar--start': (
+          start && isSameDay(props.date, start)
+        ),
+        'Day__range-bar--end': (
+          end && isSameDay(props.date, end)
+        ),
+      }
+    );
+
     return (
       <Component
         onClick={() => props.handleClickDate(props.date)}
@@ -31,7 +32,7 @@ export function selectRangeDay(Component) {
       >
         {props.children}
         {displayRangeBar && (
-          <span className={rangeBarClassName(props.date, props.range)} />
+          <span className={barClassName} />
         )}
       </Component>
     );

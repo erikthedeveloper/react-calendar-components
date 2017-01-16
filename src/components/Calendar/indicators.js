@@ -1,35 +1,50 @@
-import React, { PropTypes } from 'react';
-import { compose } from '../../utils/utils';
+import React, { PropTypes, Component } from 'react';
+import { flowRight as compose } from 'lodash';
 import Day from '../Day/Day';
-import withProps from '../withProps';
+import EnhanceDay from './EnhanceDay';
 import { indicatorDay } from '../Day/indicatorDay';
 import { isSameDay } from '../../utils/date-utils';
 
-const dateHasEvent =
-  (date, events) => events.some(
-    (event) => isSameDay(event.date, date)
-  );
-
 /**
- * Higher Order Component to add "day indicators" feature
- * @param {Component} Component
+ * Higher Order Component to add "day indicators" feature to Calendar
+ * @param {Component} CalendarComponent
  * @return {IndicatorCalendar}
  */
-export function indicators(Component) {
-  class IndicatorCalendar extends React.Component {
+export function indicators(CalendarComponent) {
+  class IndicatorCalendar extends Component {
     constructor() {
       super(...arguments);
 
-      this.DayComponent = compose([
-        withProps((props) => ({
-          hasIndicator: dateHasEvent(props.date, this.props.events),
-        })),
+      this.enhanceDay = compose([
+        // 02 - Provide the enhanced DayComponent with required props
+        this.withIndicatorProps.bind(this),
+        // 01 - Enhance the DayComponent to enable indicators
         indicatorDay,
-      ])(this.props.DayComponent);
+      ]);
+    }
+
+    withIndicatorProps(DayComponent) {
+      const WithIndicatorProps = (props) => (
+        <DayComponent
+          {...props}
+          hasIndicator={this.props.events.some(
+            (event) => isSameDay(event.date, props.date)
+          )}
+        />
+      );
+
+      return WithIndicatorProps;
     }
 
     render() {
-      return <Component {...this.props} DayComponent={this.DayComponent} />
+      return (
+        <EnhanceDay
+          DayComponent={this.props.DayComponent}
+          enhanceDay={this.enhanceDay}
+        >
+          {(EnhancedDay) => <CalendarComponent {...this.props} DayComponent={EnhancedDay} />}
+        </EnhanceDay>
+      )
     }
   }
 

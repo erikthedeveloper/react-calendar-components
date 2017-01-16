@@ -1,19 +1,19 @@
 import React, { PropTypes } from 'react';
 
-export function indicatorDay(Component) {
+export function indicatorDay(DayComponent) {
   const IndicatorDay = (props) => {
     return (
-      <Component {...props}>
+      <DayComponent {...props}>
         {props.children}
         {props.hasIndicator && (
           <span className="Day__indicator" />
         )}
-      </Component>
+      </DayComponent>
     );
   };
 
   IndicatorDay.propTypes = {
-    hasIndicator: PropTypes.bool,
+    hasIndicator: PropTypes.bool.isRequired,
   };
 
   return IndicatorDay;

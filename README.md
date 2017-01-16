@@ -2,10 +2,9 @@
 
 **Components for `(building a month calendar with || learning)` React.**
 
-A _*zero-dependency_ project that explores various _**React_ concepts and serves as an example for learning purposes.
+An example project that explores various _*[React](facebook.github.io/react/)_ concepts and serves as an example for learning purposes.
 
-* _*Zero dependencies, Javascript or otherwise, beyond [React](facebook.github.io/react/)_
-* _**I'm aiming to keep this compatible with others such as [Preact](https://preactjs.com/)_ and [Inferno](https://infernojs.org/)
+* _*I'm aiming to keep this compatible with others such as [Preact](https://preactjs.com/)_ and [Inferno](https://infernojs.org/)
 
 Poke around [src/components/](src/components/), [src/stories/](src/stories/), or go play with the [live examples via Storybook](https://erikthedeveloper.github.io/react-calendar-components/)
 
@@ -20,7 +19,7 @@ Poke around [src/components/](src/components/), [src/stories/](src/stories/), or
 - Writing UI stories with [Storybook](https://getstorybook.io/)
 - [TODO] ...
 
-## Other [Javascript] Concepts
+## Other Concepts
 
 - Working with Javascript's [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) API
 - Writing tests with [Jest](https://facebook.github.io/jest/)

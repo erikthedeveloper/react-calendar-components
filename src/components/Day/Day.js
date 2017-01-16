@@ -1,16 +1,6 @@
 import React, { PropTypes } from 'react';
+import classnames from 'classnames';
 import './Day.css';
-
-function getDayClassName(props) {
-  let className = 'Day';
-  if (props.disabled)
-    className += ' Day--disabled';
-  if (props.today)
-    className += ' Day--today';
-  if (props.selected)
-    className += ' Day--selected';
-  return className
-}
 
 const Day = (props) => {
   // Whitelist props to be spread onto the top level div
@@ -19,8 +9,17 @@ const Day = (props) => {
     onMouseEnter: props.onMouseEnter,
   };
 
+  const className = classnames(
+    'Day',
+    {
+      'Day--disabled': props.disabled,
+      'Day--today': props.today,
+      'Day--selected': props.selected,
+    }
+  );
+
   return (
-    <div {...otherProps} className={getDayClassName(props)}>
+    <div {...otherProps} className={className}>
       <div className="Day__date">
         {props.date.getDate()}
       </div>

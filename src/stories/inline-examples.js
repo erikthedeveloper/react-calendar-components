@@ -2,9 +2,10 @@ import React, { PropTypes } from 'react';
 import { storiesOf } from '@kadira/storybook';
 import { StoryState } from '../components/State';
 import { monthState } from './story-state';
-import { compose } from '../utils/utils';
+import { flowRight as compose } from 'lodash';
 import { isSameDay } from '../utils/date-utils';
 import Calendar from '../components/Calendar/Calendar';
+import EnhanceDay from '../components/Calendar/EnhanceDay';
 import Day from '../components/Day/Day';
 
 /**
@@ -82,9 +83,8 @@ storiesOf('Inline Examples', module)
       class SelectMultipleCalendar extends React.Component {
         constructor() {
           super(...arguments);
-          this.toggleDate = this.toggleDate.bind(this);
 
-          this.DayComponent = compose([
+          this.enhanceDay = compose([
             (Component) => (props) => (
               <Component
                 {...props}
@@ -93,10 +93,10 @@ storiesOf('Inline Examples', module)
               />
             ),
             selectMultipleDay,
-          ])(this.props.DayComponent);
+          ]);
         }
 
-        toggleDate(date) {
+        toggleDate = (date) => {
           const {selectedDates} = this.props;
 
           const newSelectedDates = containsDate(selectedDates, date)
@@ -107,7 +107,14 @@ storiesOf('Inline Examples', module)
         }
 
         render() {
-          return <Component {...this.props} DayComponent={this.DayComponent} />;
+          return (
+            <EnhanceDay
+              DayComponent={this.props.DayComponent}
+              enhanceDay={this.enhanceDay}
+            >
+              {(EnhancedDay) => <Component {...this.props} DayComponent={EnhancedDay} />}
+            </EnhanceDay>
+          );
         }
       }
 
