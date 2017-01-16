@@ -7,10 +7,10 @@ import { selectRangeDay } from '../Day/selectRangeDay';
 
 /**
  * Higher Order Component to add "select range" feature
- * @param {Component} Component
+ * @param {Component} CalendarComponent
  * @return {SelectRangeCalendar}
  */
-export function selectRange(Component) {
+export function selectRange(CalendarComponent) {
   class SelectRangeCalendar extends React.Component {
     constructor() {
       super(...arguments);
@@ -78,7 +78,7 @@ export function selectRange(Component) {
           DayComponent={this.props.DayComponent}
           enhanceDay={this.enhanceDay}
         >
-          {(EnhancedDay) => <Component {...this.props} DayComponent={EnhancedDay} />}
+          {(EnhancedDay) => <CalendarComponent {...this.props} DayComponent={EnhancedDay} />}
         </EnhanceDay>
       );
     }

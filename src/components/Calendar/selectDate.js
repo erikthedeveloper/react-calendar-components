@@ -7,10 +7,10 @@ import { selectDateDay } from '../Day/selectDateDay';
 
 /**
  * Higher Order Component to add "select date" feature
- * @param {Component} Component
+ * @param {Component} CalendarComponent
  * @return {SelectDateCalendar}
  */
-export function selectDate(Component) {
+export function selectDate(CalendarComponent) {
 
   class SelectDateCalendar extends React.Component {
     constructor() {
@@ -43,7 +43,7 @@ export function selectDate(Component) {
           DayComponent={this.props.DayComponent}
           enhanceDay={this.enhanceDay}
         >
-          {(EnhancedDay) => <Component {...this.props} DayComponent={EnhancedDay} />}
+          {(EnhancedDay) => <CalendarComponent {...this.props} DayComponent={EnhancedDay} />}
         </EnhanceDay>
       );
     }
