@@ -26,7 +26,6 @@ class EnhanceDay extends Component {
     );
 
     if (shouldEnhance) {
-      console.info('Re-enhancing!');
       this.setState({
         EnhancedDay: this.props.enhanceDay(this.props.DayComponent),
       })
