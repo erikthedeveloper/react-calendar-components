@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import _ from 'lodash';
 
 /**
  * Render callback component to enhance props (DayComponent)
@@ -17,8 +18,15 @@ class EnhanceDay extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // We only want to re-create this if props.DayComponent has changed.
-    if (prevProps.DayComponent !== this.props.DayComponent) {
+    // We only want to re-create EnhancedDay if the involved props have changed.
+    const involvedProps = ['DayComponent', 'enhanceDay'];
+    const shouldEnhance = !_.isEqual(
+      _.pick(prevProps, involvedProps),
+      _.pick(this.props, involvedProps),
+    );
+
+    if (shouldEnhance) {
+      console.info('Re-enhancing!');
       this.setState({
         EnhancedDay: this.props.enhanceDay(this.props.DayComponent),
       })
