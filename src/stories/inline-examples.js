@@ -13,7 +13,7 @@ import Day from '../components/Day/Day';
  * Intentionally inline/expose the innards of these examples
  * to see the flow of things all together...
  */
-storiesOf('Inline Examples', module)
+storiesOf('Calendar', module)
   .add('Disable Weekends (simple)', () => {
     /**
      * HoC with argument(s) to enhance Day

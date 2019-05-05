@@ -17,12 +17,7 @@ const SelectDateCalendar = selectDate(Calendar);
 const DayIndicatorsCalendar = indicators(Calendar);
 const SelectRangeCalendar = selectRange(Calendar);
 
-storiesOf('Composing Calendar', module)
-  .add('Calendar (basic)', () => (
-    <StoryState stateProps={[monthState]}>
-      {stateProps => <Calendar {...stateProps} />}
-    </StoryState>
-  ))
+storiesOf('Calendar', module)
 
   .add('Select Date', () => (
     <StoryState stateProps={[monthState, selectDateState]}>
