@@ -2,13 +2,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export function indicatorDay(DayComponent) {
-  const IndicatorDay = (props) => {
+  const IndicatorDay = props => {
     return (
       <DayComponent {...props}>
         {props.children}
-        {props.hasIndicator && (
-          <span className="Day__indicator" />
-        )}
+        {props.hasIndicator && <span className="Day__indicator" />}
       </DayComponent>
     );
   };

@@ -44,29 +44,30 @@ State.propTypes = {
  * @param stateProps
  * @return {{initialState, stateSetters}}
  */
-const mergeStateProps = (stateProps) => stateProps.reduce(
-  (merged, props) => ({
+const mergeStateProps = stateProps =>
+  stateProps.reduce((merged, props) => ({
     initialState: {
       ...merged.initialState,
       ...props.initialState,
     },
-    stateSetters: (setState) => ({
+    stateSetters: setState => ({
       ...merged.stateSetters(setState),
       ...props.stateSetters(setState),
     }),
-  })
-);
+  }));
 
 const StoryState = ({stateProps, children}) => (
   <State {...mergeStateProps(stateProps)} children={children} />
 );
 
 StoryState.propTypes = {
-  stateProps: PropTypes.arrayOf(PropTypes.shape({
-    initialState: State.propTypes.initialState,
-    stateSetters: State.propTypes.stateSetters,
-  }))
+  stateProps: PropTypes.arrayOf(
+    PropTypes.shape({
+      initialState: State.propTypes.initialState,
+      stateSetters: State.propTypes.stateSetters,
+    })
+  ),
 };
 
 export default State;
-export { StoryState };
+export {StoryState};

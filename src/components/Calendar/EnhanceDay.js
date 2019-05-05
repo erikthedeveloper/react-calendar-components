@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import _ from 'lodash';
 
 /**
@@ -23,13 +23,13 @@ class EnhanceDay extends Component {
     const involvedProps = ['DayComponent', 'enhanceDay'];
     const shouldEnhance = !_.isEqual(
       _.pick(prevProps, involvedProps),
-      _.pick(this.props, involvedProps),
+      _.pick(this.props, involvedProps)
     );
 
     if (shouldEnhance) {
       this.setState({
         EnhancedDay: this.props.enhanceDay(this.props.DayComponent),
-      })
+      });
     }
   }
 

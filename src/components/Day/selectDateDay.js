@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export function selectDateDay(DayComponent) {
-  const SelectDateDay = (props) => {
+  const SelectDateDay = props => {
     const {selectDate, selected, ...otherProps} = props;
 
     const enhancedProps = {

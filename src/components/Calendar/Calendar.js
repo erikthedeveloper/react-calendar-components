@@ -1,27 +1,48 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import './Calendar.css';
-import { calendarMonthDates, isSameMonth, isSameDay } from '../../utils/date-utils';
+import {
+  calendarMonthDates,
+  isSameMonth,
+  isSameDay,
+} from '../../utils/date-utils';
 import Day from '../Day/Day';
 import MonthGrid from '../MonthGrid';
 
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const MONTHS = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
 
 class Calendar extends React.Component {
   incrementMonth = () => {
-    this.props.setCurrentMonth(new Date(
-      this.props.currentMonth.getFullYear(),
-      this.props.currentMonth.getMonth() + 1
-    ));
-  }
+    this.props.setCurrentMonth(
+      new Date(
+        this.props.currentMonth.getFullYear(),
+        this.props.currentMonth.getMonth() + 1
+      )
+    );
+  };
 
   decrementMonth = () => {
-    this.props.setCurrentMonth(new Date(
-      this.props.currentMonth.getFullYear(),
-      this.props.currentMonth.getMonth() - 1
-    ));
-  }
+    this.props.setCurrentMonth(
+      new Date(
+        this.props.currentMonth.getFullYear(),
+        this.props.currentMonth.getMonth() - 1
+      )
+    );
+  };
 
   render() {
     const {currentMonth, DayComponent} = this.props;
@@ -30,17 +51,20 @@ class Calendar extends React.Component {
 
     return (
       <div className="Calendar">
-
         <div className="MonthHeader">
-          <div className="MonthHeader__nav" onClick={this.decrementMonth}>&#10094;</div>
+          <div className="MonthHeader__nav" onClick={this.decrementMonth}>
+            &#10094;
+          </div>
           <div className="MonthHeader__label">
             {MONTHS[currentMonth.getMonth()]}
           </div>
-          <div className="MonthHeader__nav" onClick={this.incrementMonth}>&#10095;</div>
+          <div className="MonthHeader__nav" onClick={this.incrementMonth}>
+            &#10095;
+          </div>
         </div>
 
         <div className="WeekdayLabels">
-          {WEEKDAYS.map((label) => (
+          {WEEKDAYS.map(label => (
             <div className="WeekdayLabels__label" key={label}>
               {label}
             </div>
@@ -48,7 +72,7 @@ class Calendar extends React.Component {
         </div>
 
         <MonthGrid>
-          {visibleDates.map((date) => (
+          {visibleDates.map(date => (
             <DayComponent
               key={date.toString()}
               date={date}
@@ -57,9 +81,8 @@ class Calendar extends React.Component {
             />
           ))}
         </MonthGrid>
-
       </div>
-    )
+    );
   }
 }
 

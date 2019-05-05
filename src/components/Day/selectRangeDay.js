@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
-import { isInRange, isSameDay } from '../../utils/date-utils';
+import {isInRange, isSameDay} from '../../utils/date-utils';
 
 export function selectRangeDay(Component) {
-  const RangeDay = (props) => {
+  const RangeDay = props => {
     const {start, end, hoverDate} = props.range;
 
     const displayRangeBar = isInRange(
@@ -13,17 +13,10 @@ export function selectRangeDay(Component) {
       end || hoverDate || start
     );
 
-    const barClassName = classnames(
-      'Day__range-bar',
-      {
-        'Day__range-bar--start': (
-          start && isSameDay(props.date, start)
-        ),
-        'Day__range-bar--end': (
-          end && isSameDay(props.date, end)
-        ),
-      }
-    );
+    const barClassName = classnames('Day__range-bar', {
+      'Day__range-bar--start': start && isSameDay(props.date, start),
+      'Day__range-bar--end': end && isSameDay(props.date, end),
+    });
 
     return (
       <Component
@@ -32,9 +25,7 @@ export function selectRangeDay(Component) {
         {...props}
       >
         {props.children}
-        {displayRangeBar && (
-          <span className={barClassName} />
-        )}
+        {displayRangeBar && <span className={barClassName} />}
       </Component>
     );
   };

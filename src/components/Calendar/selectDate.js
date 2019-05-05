@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { flowRight as compose } from 'lodash';
+import {flowRight as compose} from 'lodash';
 import Day from '../Day/Day';
 import EnhanceDay from './EnhanceDay';
-import { isSameDay } from '../../utils/date-utils';
-import { selectDateDay } from '../Day/selectDateDay';
+import {isSameDay} from '../../utils/date-utils';
+import {selectDateDay} from '../Day/selectDateDay';
 
 /**
  * Higher Order Component to add "select date" feature
@@ -12,7 +12,6 @@ import { selectDateDay } from '../Day/selectDateDay';
  * @return {SelectDateCalendar}
  */
 export function selectDate(CalendarComponent) {
-
   class SelectDateCalendar extends React.Component {
     constructor() {
       super(...arguments);
@@ -24,14 +23,14 @@ export function selectDate(CalendarComponent) {
     }
 
     withSelectDateProps(DayComponent) {
-      const WithSelectDateProps = (props) => (
+      const WithSelectDateProps = props => (
         <DayComponent
           {...props}
           selectDate={this.props.selectDate}
-          selected={(
+          selected={
             this.props.selectedDate &&
             isSameDay(props.date, this.props.selectedDate)
-          )}
+          }
         />
       );
 
@@ -44,7 +43,9 @@ export function selectDate(CalendarComponent) {
           DayComponent={this.props.DayComponent}
           enhanceDay={this.enhanceDay}
         >
-          {(EnhancedDay) => <CalendarComponent {...this.props} DayComponent={EnhancedDay} />}
+          {EnhancedDay => (
+            <CalendarComponent {...this.props} DayComponent={EnhancedDay} />
+          )}
         </EnhanceDay>
       );
     }

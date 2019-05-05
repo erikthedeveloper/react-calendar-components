@@ -1,9 +1,9 @@
-import { configure, addParameters } from '@storybook/react';
+import {configure, addParameters} from '@storybook/react';
 
 addParameters({
   options: {
     showPanel: false,
-  }
+  },
 });
 
 function loadStories() {

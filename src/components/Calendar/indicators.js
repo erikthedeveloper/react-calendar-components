@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import { flowRight as compose } from 'lodash';
+import React, {Component} from 'react';
+import {flowRight as compose} from 'lodash';
 import Day from '../Day/Day';
 import EnhanceDay from './EnhanceDay';
-import { indicatorDay } from '../Day/indicatorDay';
-import { isSameDay } from '../../utils/date-utils';
+import {indicatorDay} from '../Day/indicatorDay';
+import {isSameDay} from '../../utils/date-utils';
 
 /**
  * Higher Order Component to add "day indicators" feature to Calendar
@@ -25,11 +25,11 @@ export function indicators(CalendarComponent) {
     }
 
     withIndicatorProps(DayComponent) {
-      const WithIndicatorProps = (props) => (
+      const WithIndicatorProps = props => (
         <DayComponent
           {...props}
-          hasIndicator={this.props.events.some(
-            (event) => isSameDay(event.date, props.date)
+          hasIndicator={this.props.events.some(event =>
+            isSameDay(event.date, props.date)
           )}
         />
       );
@@ -43,9 +43,11 @@ export function indicators(CalendarComponent) {
           DayComponent={this.props.DayComponent}
           enhanceDay={this.enhanceDay}
         >
-          {(EnhancedDay) => <CalendarComponent {...this.props} DayComponent={EnhancedDay} />}
+          {EnhancedDay => (
+            <CalendarComponent {...this.props} DayComponent={EnhancedDay} />
+          )}
         </EnhanceDay>
-      )
+      );
     }
   }
 

@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-import { StoryState } from '../components/State';
-import { monthState } from './story-state';
-import { flowRight as compose } from 'lodash';
-import { isSameDay } from '../utils/date-utils';
+import {storiesOf} from '@storybook/react';
+import {StoryState} from '../components/State';
+import {monthState} from './story-state';
+import {flowRight as compose} from 'lodash';
+import {isSameDay} from '../utils/date-utils';
 import Calendar from '../components/Calendar/Calendar';
 import EnhanceDay from '../components/Calendar/EnhanceDay';
 import Day from '../components/Day/Day';
@@ -14,13 +14,12 @@ import Day from '../components/Day/Day';
  * to see the flow of things all together...
  */
 storiesOf('Inline Examples', module)
-
   .add('Disable Weekends (simple)', () => {
     /**
      * HoC with argument(s) to enhance Day
      * @param {function(Date): bool} shouldDisable
      */
-    const disableDay = (shouldDisable) => (Day) => (props) => (
+    const disableDay = shouldDisable => Day => props => (
       <Day
         {...props}
         // Account for "already disabled"
@@ -29,8 +28,8 @@ storiesOf('Inline Examples', module)
     );
 
     // Feed disableDay a shouldDisable(Date): bool function
-    const disableForWeekends = disableDay(
-      (date) => [0, 6].includes(date.getDay())
+    const disableForWeekends = disableDay(date =>
+      [0, 6].includes(date.getDay())
     );
 
     // Enhance our Day component
@@ -38,12 +37,7 @@ storiesOf('Inline Examples', module)
 
     return (
       <StoryState stateProps={[monthState]}>
-        {(stateProps) => (
-          <Calendar
-            {...stateProps}
-            DayComponent={DayComponent}
-          />
-        )}
+        {stateProps => <Calendar {...stateProps} DayComponent={DayComponent} />}
       </StoryState>
     );
   })
@@ -54,14 +48,13 @@ storiesOf('Inline Examples', module)
      * @param {Date} date
      * @return bool
      */
-    const containsDate = (dates, date) =>
-      dates.some((d) => isSameDay(date, d));
+    const containsDate = (dates, date) => dates.some(d => isSameDay(date, d));
 
     /**
      * HoC to enhance Day
      */
     function selectMultipleDay(Component) {
-      const SelectMultipleDay = (props) => (
+      const SelectMultipleDay = props => (
         <Component
           {...props}
           selected={props.selected}
@@ -86,7 +79,7 @@ storiesOf('Inline Examples', module)
           super(...arguments);
 
           this.enhanceDay = compose([
-            (Component) => (props) => (
+            Component => props => (
               <Component
                 {...props}
                 handleClickDate={this.toggleDate}
@@ -97,15 +90,15 @@ storiesOf('Inline Examples', module)
           ]);
         }
 
-        toggleDate = (date) => {
+        toggleDate = date => {
           const {selectedDates} = this.props;
 
           const newSelectedDates = containsDate(selectedDates, date)
-            ? selectedDates.filter((d) => !isSameDay(d, date))
+            ? selectedDates.filter(d => !isSameDay(d, date))
             : [...selectedDates, date];
 
           this.props.setSelectedDates(newSelectedDates);
-        }
+        };
 
         render() {
           return (
@@ -113,7 +106,9 @@ storiesOf('Inline Examples', module)
               DayComponent={this.props.DayComponent}
               enhanceDay={this.enhanceDay}
             >
-              {(EnhancedDay) => <Component {...this.props} DayComponent={EnhancedDay} />}
+              {EnhancedDay => (
+                <Component {...this.props} DayComponent={EnhancedDay} />
+              )}
             </EnhanceDay>
           );
         }
@@ -136,11 +131,13 @@ storiesOf('Inline Examples', module)
     // State to plug into story
     const selectMultipleState = {
       initialState: {
-        selectedDates: [-3, 2, 7, 15]
-          .map((addDays) => new Date(now.getFullYear(), now.getMonth(), now.getDate() + addDays))
+        selectedDates: [-3, 2, 7, 15].map(
+          addDays =>
+            new Date(now.getFullYear(), now.getMonth(), now.getDate() + addDays)
+        ),
       },
-      stateSetters: (setState) => ({
-        setSelectedDates: (selectedDates) => setState({selectedDates}),
+      stateSetters: setState => ({
+        setSelectedDates: selectedDates => setState({selectedDates}),
       }),
     };
 
@@ -149,8 +146,7 @@ storiesOf('Inline Examples', module)
 
     return (
       <StoryState stateProps={[monthState, selectMultipleState]}>
-        {(stateProps) => <CalendarComponent {...stateProps} />}
+        {stateProps => <CalendarComponent {...stateProps} />}
       </StoryState>
-    )
-
+    );
   });

@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { flowRight as compose } from 'lodash';
+import {flowRight as compose} from 'lodash';
 import withProps from '../withProps';
 import Day from '../Day/Day';
 import EnhanceDay from './EnhanceDay';
-import { selectRangeDay } from '../Day/selectRangeDay';
+import {selectRangeDay} from '../Day/selectRangeDay';
 
 /**
  * Higher Order Component to add "select range" feature
@@ -17,7 +17,7 @@ export function selectRange(CalendarComponent) {
       super(...arguments);
 
       this.enhanceDay = compose([
-        withProps((props) => ({
+        withProps(props => ({
           range: {
             ...this.props.range,
             hoverDate: this.state.hoverDate,
@@ -43,33 +43,34 @@ export function selectRange(CalendarComponent) {
     /**
      * @param {Date} date
      */
-    handleClickDate = (date) => {
+    handleClickDate = date => {
       const {range} = this.props;
 
       const useAsEndDate =
         // Do we have a start date and need an end date
-        (range.start && !range.end) &&
+        range.start &&
+        !range.end &&
         // AND is this date is after our start date?
         date >= range.start;
 
       this.props.setRange(
         useAsEndDate
-          // Keep start. Set as end.
-          ? {start: range.start, end: date}
-          // Set as start. Clear end.
-          : {start: date, end: undefined}
+          ? // Keep start. Set as end.
+            {start: range.start, end: date}
+          : // Set as start. Clear end.
+            {start: date, end: undefined}
       );
-    }
+    };
 
     /**
      * @param {Date} date
      */
-    handleMouseEnterDate = (date) => {
+    handleMouseEnterDate = date => {
       const {range} = this.props;
       if (range.start && !range.end) {
         this.setState({hoverDate: date});
       }
-    }
+    };
 
     render() {
       return (
@@ -77,7 +78,9 @@ export function selectRange(CalendarComponent) {
           DayComponent={this.props.DayComponent}
           enhanceDay={this.enhanceDay}
         >
-          {(EnhancedDay) => <CalendarComponent {...this.props} DayComponent={EnhancedDay} />}
+          {EnhancedDay => (
+            <CalendarComponent {...this.props} DayComponent={EnhancedDay} />
+          )}
         </EnhanceDay>
       );
     }

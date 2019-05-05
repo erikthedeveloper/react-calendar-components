@@ -1,8 +1,6 @@
-import { calendarMonthDates } from './date-utils';
-
+import {calendarMonthDates} from './date-utils';
 
 describe('calendarMonthDates', () => {
-
   it('produces expected dates for January 2017', () => {
     const result = calendarMonthDates(new Date(2017, 0));
 
@@ -17,12 +15,9 @@ describe('calendarMonthDates', () => {
     expectedDates.forEach(([resultIndex, expectedDateArgs]) => {
       const date = result[resultIndex];
 
-      expect([
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate(),
-      ]).toEqual(expectedDateArgs);
+      expect([date.getFullYear(), date.getMonth(), date.getDate()]).toEqual(
+        expectedDateArgs
+      );
     });
   });
-
 });
