@@ -6,7 +6,7 @@ import './Day.css';
 const Day = props => {
   // Whitelist props to be spread onto the top level div
   const otherProps = {
-    onClick: props.onClick,
+    onClick: props.disabled ? undefined : props.onClick,
     onMouseEnter: props.onMouseEnter,
   };
 

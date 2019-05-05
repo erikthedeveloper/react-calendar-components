@@ -2,19 +2,20 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {StoryState} from '../components/State';
-import {monthState} from './story-state';
+import {monthState, selectDateState} from './story-state';
 import {flowRight as compose} from 'lodash';
 import {isSameDay} from '../utils/date-utils';
 import Calendar from '../components/Calendar/Calendar';
 import EnhanceDay from '../components/Calendar/EnhanceDay';
 import Day from '../components/Day/Day';
+import {selectDate} from '../components/Calendar/selectDate';
 
 /**
  * Intentionally inline/expose the innards of these examples
  * to see the flow of things all together...
  */
 storiesOf('Calendar', module)
-  .add('Disable Weekends (simple)', () => {
+  .add('Select Date + Disable Weekends (simple)', () => {
     /**
      * HoC with argument(s) to enhance Day
      * @param {function(Date): bool} shouldDisable
@@ -35,9 +36,11 @@ storiesOf('Calendar', module)
     // Enhance our Day component
     const DayComponent = disableForWeekends(Day);
 
+    const CalendarComponent = selectDate(Calendar);
+
     return (
-      <StoryState stateProps={[monthState]}>
-        {stateProps => <Calendar {...stateProps} DayComponent={DayComponent} />}
+      <StoryState stateProps={[monthState, selectDateState]}>
+        {stateProps => <CalendarComponent {...stateProps} DayComponent={DayComponent} />}
       </StoryState>
     );
   })
