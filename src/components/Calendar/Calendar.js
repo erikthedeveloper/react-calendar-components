@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import './Calendar.css';
 import { calendarMonthDates, isSameMonth, isSameDay } from '../../utils/date-utils';
 import Day from '../Day/Day';

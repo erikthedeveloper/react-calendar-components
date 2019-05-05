@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { flowRight as compose } from 'lodash';
 import Day from '../Day/Day';
 import EnhanceDay from './EnhanceDay';

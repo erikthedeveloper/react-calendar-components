@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
-import { storiesOf } from '@kadira/storybook';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { storiesOf } from '@storybook/react';
 import { StoryState } from '../components/State';
 import { monthState } from './story-state';
 import { flowRight as compose } from 'lodash';
