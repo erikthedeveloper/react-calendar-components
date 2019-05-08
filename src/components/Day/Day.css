@@ -5,7 +5,11 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+
+  border: none;
+  background: none;
 }
+
 .Day__date {
   display: flex;
   align-items: center;
