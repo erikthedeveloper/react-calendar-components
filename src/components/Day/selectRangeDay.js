@@ -22,6 +22,7 @@ export function selectRangeDay(Component) {
       <Component
         onClick={() => props.handleClickDate(props.date)}
         onMouseEnter={() => props.handleMouseEnterDate(props.date)}
+        onFocus={() => props.handleMouseEnterDate(props.date)}
         {...props}
       >
         {props.children}
