@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const now = new Date();
 
 export const dummyEvents = [-2, 3, 7, 15, 20, 40].map(addDays => ({

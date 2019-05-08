@@ -5,7 +5,12 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+
+  border: none;
+  background: none;
+  padding: 0;
 }
+
 .Day__date {
   display: flex;
   align-items: center;
@@ -37,6 +42,7 @@
 .Day__indicator {
   position: absolute;
   bottom: 5px;
+  left: 0;
   width: 100%;
 }
 .Day__indicator:after {
@@ -52,6 +58,7 @@
 .Day__range-bar {
   position: absolute;
   bottom: 5px;
+  left: 0;
   height: 8px;
   width: 100%;
   opacity: 0.4;

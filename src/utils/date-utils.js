@@ -1,5 +1,30 @@
 import {range} from 'lodash';
 
+export const WEEKDAYS_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+export const WEEKDAYS = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+];
+export const MONTHS = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
 export const isSameYear = (a, b) => a.getFullYear() === b.getFullYear();
 
 export const isSameMonth = (a, b) =>
@@ -9,6 +34,9 @@ export const isSameDay = (a, b) =>
   isSameMonth(a, b) && a.getDate() === b.getDate();
 
 export const isInRange = (date, start, end) => start <= date && date <= end;
+
+export const addMonths = (date, count) =>
+  new Date(date.getFullYear(), date.getMonth() + count);
 
 /**
  * Given a date, how many days are in the month?

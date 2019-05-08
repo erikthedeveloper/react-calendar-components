@@ -18,7 +18,6 @@ const DayIndicatorsCalendar = indicators(Calendar);
 const SelectRangeCalendar = selectRange(Calendar);
 
 storiesOf('Calendar', module)
-
   .add('Select Date', () => (
     <StoryState stateProps={[monthState, selectDateState]}>
       {stateProps => <SelectDateCalendar {...stateProps} />}

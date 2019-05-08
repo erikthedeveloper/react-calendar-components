@@ -1,7 +1,7 @@
 .Calendar {
   width: 500px;
-  border: 1px solid #BABABA;
-  font-family: "Open Sans", serif;
+  border: 1px solid #bababa;
+  font-family: 'Open Sans', serif;
 }
 
 .MonthHeader {
@@ -17,11 +17,14 @@
   padding: 10px 20px;
   font-size: 36px;
   cursor: pointer;
+
+  border: none;
+  background: none;
 }
 
 .WeekdayLabels {
   display: flex;
-  border: solid #BABABA;
+  border: solid #bababa;
   border-width: 0 0 1px 0;
   padding-bottom: 5px;
 }

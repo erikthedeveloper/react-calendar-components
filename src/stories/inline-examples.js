@@ -40,7 +40,9 @@ storiesOf('Calendar', module)
 
     return (
       <StoryState stateProps={[monthState, selectDateState]}>
-        {stateProps => <CalendarComponent {...stateProps} DayComponent={DayComponent} />}
+        {stateProps => (
+          <CalendarComponent {...stateProps} DayComponent={DayComponent} />
+        )}
       </StoryState>
     );
   })

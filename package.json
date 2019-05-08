@@ -5,19 +5,23 @@
   "scripts": {
     "start": "yarn run storybook",
     "test": "react-scripts test --env=jsdom",
-    "format": "prettier \"./**/*.js\" --write",
+    "format": "prettier \"./**/*.{js,css,md}\" --write",
     "storybook": "start-storybook",
     "deploy": "storybook-to-ghpages",
     "build-storybook": "build-storybook -s public"
   },
   "devDependencies": {
     "@babel/core": "7.4.4",
+    "@storybook/addon-a11y": "5.0.11",
     "@storybook/addon-actions": "5.0.11",
     "@storybook/addon-links": "5.0.11",
     "@storybook/addons": "5.0.11",
     "@storybook/react": "5.0.11",
     "@storybook/storybook-deployer": "2.8.1",
     "babel-loader": "8.0.5",
+    "eslint": "5.16.0",
+    "eslint-plugin-jsx-a11y": "6.2.1",
+    "eslint-plugin-react": "7.13.0",
     "prettier": "1.17.0",
     "prop-types": "15.7.2",
     "react-scripts": "3.0.0"

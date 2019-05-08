@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {Component} from 'react';
+import React from 'react';
 import _ from 'lodash';
 
 /**
@@ -9,7 +9,7 @@ import _ from 'lodash';
  * We want to avoid creating this on every render, but we also want
  * to account for the fact that props.DayComponent could change.
  */
-class EnhanceDay extends Component {
+class EnhanceDay extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
