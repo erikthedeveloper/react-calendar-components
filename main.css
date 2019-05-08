@@ -1,0 +1,134 @@
+.Calendar {
+  width: 500px;
+  border: 1px solid #bababa;
+  font-family: 'Open Sans', serif;
+}
+
+.MonthHeader {
+  display: flex;
+  text-align: center;
+  align-items: center;
+}
+.MonthHeader__label {
+  flex: 1 1;
+  font-size: 24px;
+}
+.MonthHeader__nav {
+  padding: 10px 20px;
+  font-size: 36px;
+  cursor: pointer;
+
+  border: none;
+  background: none;
+}
+
+.WeekdayLabels {
+  display: flex;
+  border: solid #bababa;
+  border-width: 0 0 1px 0;
+  padding-bottom: 5px;
+}
+.WeekdayLabels__label {
+  flex: 1 1;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.Day {
+  flex: 1 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+.Day__date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  border: 1px solid transparent;
+}
+.Day__content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.Day--today .Day__date {
+  border-color: orange;
+}
+.Day--disabled {
+  opacity: 0.4;
+}
+.Day--selected .Day__date {
+  background-color: orange;
+  color: white;
+}
+
+.Day__indicator {
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  width: 100%;
+}
+.Day__indicator:after {
+  display: block;
+  content: '';
+  height: 8px;
+  width: 8px;
+  margin: 0 auto;
+  border-radius: 50px;
+  background-color: pink;
+}
+
+.Day__range-bar {
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  height: 8px;
+  width: 100%;
+  opacity: 0.4;
+  background-color: darkmagenta;
+}
+
+.Day__range-bar--start {
+  opacity: 1;
+}
+.Day__range-bar--end {
+  opacity: 1;
+}
+
+.MonthGrid {
+}
+.MonthGrid__row {
+  display: flex;
+}
+.MonthGrid__item {
+  position: relative;
+  flex: 1 1;
+}
+/* Expand .MonthGrid__item's height to be square */
+.MonthGrid__item__height {
+  padding-bottom: 100%;
+}
+.MonthGrid__item__content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+}
+
+
+/*# sourceMappingURL=main.css.map*/
