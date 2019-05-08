@@ -5,7 +5,7 @@
   "scripts": {
     "start": "yarn run storybook",
     "test": "react-scripts test --env=jsdom",
-    "format": "prettier \"./**/*.js\" --write",
+    "format": "prettier \"./**/*.{js,css,md}\" --write",
     "storybook": "start-storybook",
     "deploy": "storybook-to-ghpages",
     "build-storybook": "build-storybook -s public"
