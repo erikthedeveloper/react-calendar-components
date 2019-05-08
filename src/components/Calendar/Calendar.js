@@ -70,6 +70,7 @@ class Calendar extends React.Component {
               date={date}
               today={isSameDay(date, this.props.today)}
               disabled={!isSameMonth(date, currentMonth)}
+              tabIndex={!isSameMonth(date, currentMonth) ? -1 : undefined}
             />
           ))}
         </MonthGrid>

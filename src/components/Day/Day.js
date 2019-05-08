@@ -21,6 +21,7 @@ const Day = props => {
   const otherProps = {
     onClick: props.disabled ? undefined : props.onClick,
     onMouseEnter: props.onMouseEnter,
+    tabIndex: props.tabIndex,
   };
 
   const className = classnames('Day', {
