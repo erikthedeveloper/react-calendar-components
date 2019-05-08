@@ -5,6 +5,7 @@ import {
   calendarMonthDates,
   isSameMonth,
   isSameDay,
+  addMonths,
 } from '../../utils/date-utils';
 import Day from '../Day/Day';
 import MonthGrid from '../MonthGrid';
@@ -27,21 +28,11 @@ const MONTHS = [
 
 class Calendar extends React.Component {
   incrementMonth = () => {
-    this.props.setCurrentMonth(
-      new Date(
-        this.props.currentMonth.getFullYear(),
-        this.props.currentMonth.getMonth() + 1
-      )
-    );
+    this.props.setCurrentMonth(addMonths(this.props.currentMonth, 1));
   };
 
   decrementMonth = () => {
-    this.props.setCurrentMonth(
-      new Date(
-        this.props.currentMonth.getFullYear(),
-        this.props.currentMonth.getMonth() - 1
-      )
-    );
+    this.props.setCurrentMonth(addMonths(this.props.currentMonth, -1));
   };
 
   render() {
