@@ -17,6 +17,17 @@ To summarize the overall approach used:
 
 If you're curious to learn more, poke around [src/components/](src/components/), [src/stories/](src/stories/) and play with the live examples via [Storybook](https://getstorybook.io/): [https://erikthedeveloper.github.io/react-calendar-components/](https://erikthedeveloper.github.io/react-calendar-components/?path=/story/calendar--select-range-day-indicators)
 
+## Accessibility
+
+The calendar UI is built with accessibility in mind. This includes things like accounting for keyboard navigation and providing appropriate aria labels.
+
+Example: Navigating months and selecting a date range using only the keyboard.
+
+![Calendar a11y Select Date Range](assets/Calendar-a11y-01-Select-Range.gif)
+
+
+For a quality dive into accessibility specific to calendars see this great write up: https://www.24a11y.com/2018/a-new-day-making-a-better-calendar/
+
 ## React Concepts
 
 - Higher order components
