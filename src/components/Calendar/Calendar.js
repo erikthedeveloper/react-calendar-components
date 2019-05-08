@@ -37,21 +37,36 @@ class Calendar extends React.Component {
 
   render() {
     const {currentMonth, DayComponent} = this.props;
+    const [prevMonth, nextMonth] = [-1, 1].map(n => addMonths(currentMonth, n));
+    const formatMonth = date =>
+      `${MONTHS[date.getMonth()]} ${date.getFullYear()}`;
 
     const visibleDates = calendarMonthDates(currentMonth);
 
     return (
       <div className="Calendar">
         <div className="MonthHeader">
-          <div className="MonthHeader__nav" onClick={this.decrementMonth}>
+          <button
+            className="MonthHeader__nav"
+            onClick={this.decrementMonth}
+            type="button"
+            aria-label={`Previous month, ${formatMonth(prevMonth)}`}
+          >
             &#10094;
-          </div>
+          </button>
+
           <div className="MonthHeader__label">
             {MONTHS[currentMonth.getMonth()]}
           </div>
-          <div className="MonthHeader__nav" onClick={this.incrementMonth}>
+
+          <button
+            className="MonthHeader__nav"
+            onClick={this.incrementMonth}
+            type="button"
+            aria-label={`Next month, ${formatMonth(nextMonth)}`}
+          >
             &#10095;
-          </div>
+          </button>
         </div>
 
         <div className="WeekdayLabels">

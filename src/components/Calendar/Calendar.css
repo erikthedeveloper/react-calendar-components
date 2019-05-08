@@ -17,6 +17,9 @@
   padding: 10px 20px;
   font-size: 36px;
   cursor: pointer;
+
+  border: none;
+  background: none;
 }
 
 .WeekdayLabels {
