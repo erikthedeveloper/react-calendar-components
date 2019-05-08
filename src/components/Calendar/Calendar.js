@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import './Calendar.css';
 import {
+  MONTHS,
+  WEEKDAYS_SHORT,
   calendarMonthDates,
   isSameMonth,
   isSameDay,
@@ -9,22 +11,6 @@ import {
 } from '../../utils/date-utils';
 import Day from '../Day/Day';
 import MonthGrid from '../MonthGrid';
-
-const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-const MONTHS = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
 
 class Calendar extends React.Component {
   incrementMonth = () => {
@@ -70,7 +56,7 @@ class Calendar extends React.Component {
         </div>
 
         <div className="WeekdayLabels">
-          {WEEKDAYS.map(label => (
+          {WEEKDAYS_SHORT.map(label => (
             <div className="WeekdayLabels__label" key={label}>
               {label}
             </div>
